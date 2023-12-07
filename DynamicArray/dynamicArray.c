@@ -1,0 +1,195 @@
+#include "dynamicArray.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+#define DEFAULT_CAPACITY    10
+
+#define CHECK_PTR(ptr)      \
+    do                      \
+    {                       \
+        if (ptr == NULL)    \
+        {                   \
+            exit(0);        \
+        }                   \
+    }while(0);
+
+/* 函数前置声明 */
+/* 扩容 */
+static int expandArrayCapacity(DynamicArray *pArray);
+/* 缩容 */
+static int reduceArrayCapacity(DynamicArray *pArray);
+
+/* 动态数组初始化 */
+int dynamicArrayInit(DynamicArray *pArray)
+{
+    int ret = 0;
+    if (pArray == NULL)
+    {
+        return ret;
+    }
+    /* 分配空间 */
+    pArray->data = (ELEMENTTYPE *)malloc(sizeof(ELEMENTTYPE) * DEFAULT_CAPACITY);
+    if (!(pArray->data))
+    {
+        return -1;
+    }
+    /* 清空脏数据 */
+    memset(pArray->data, 0, sizeof(ELEMENTTYPE) * DEFAULT_CAPACITY);
+    /* initialization */
+    pArray->len = 0;
+    pArray->capacity = DEFAULT_CAPACITY;
+    return ret;
+}
+
+/* 扩容 */
+static int expandArrayCapacity(DynamicArray *pArray)
+{
+    CHECK_PTR(pArray);
+    int ret = 0;
+    /* 需要扩展的新容量 */
+    int expandNum = pArray->capacity + (pArray->capacity >> 1);
+    ELEMENTTYPE * tmpArray = pArray->data;
+    pArray->data = (ELEMENTTYPE *)malloc(sizeof(ELEMENTTYPE) * expandNum);
+    if (!(pArray->data))
+    {
+        return -1;
+    }
+    memset(pArray->data, 0, sizeof(ELEMENTTYPE) * expandNum);
+
+    /* 把之前的数据赋值到新的地址空间 */
+    for (int idx = 0; idx < pArray->len; idx++)
+    {
+        pArray->data[idx] = tmpArray[idx];
+    }
+    pArray->capacity = expandNum;
+    free(tmpArray);
+    tmpArray = NULL;
+
+    return ret;
+}
+
+/* 缩容 */
+static int reduceArrayCapacity(DynamicArray *pArray)
+{
+    CHECK_PTR(pArray);
+    int ret = 0;
+
+    int reduceNum = pArray->capacity >> 1;
+    ELEMENTTYPE * temArray = pArray->data;
+
+    if (!(pArray->data))
+    {
+        return -1;
+    }
+    memset(pArray->data, 0, sizeof(ELEMENTTYPE) * reduceNum);
+
+    for(int idx = 0; idx < reduceNum; idx++)
+    {
+        pArray->data[idx] = temArray[idx];
+    }
+
+    free(temArray);
+    temArray = NULL;
+
+    return ret;
+}
+
+
+/* 动态数组插入 (默认插入到最后位置) */
+int dynamicArrayInsert(DynamicArray *pArray, ELEMENTTYPE val)
+{
+    int ret = 0;
+    CHECK_PTR(pArray);
+    /* 扩容 */
+    if (pArray->len == (pArray->capacity >> 1))
+    {
+        expandArrayCapacity(pArray);
+    }
+    pArray->data[(pArray->len)++] = val;
+    return ret;
+}
+
+/* 动态数组插入 在指定位置插入数据 */
+int dynamicArrayAppointPosInsert(DynamicArray *pArray, int pos, ELEMENTTYPE val)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+/* 动态数组删除 在指定位置删除数据 */
+int dynamicArrayDelAppointPos(DynamicArray *pArray, int pos)
+{
+    int ret = 0;
+    CHECK_PTR(pArray);
+
+    /* 判断pos的位置 : 删除失败 */
+    if (pos < 0 || pos > pArray->len)
+    {
+        return -1;
+    }
+
+    if ()
+    for(int idx = pos; idx <= pArray->len-pos; idx++)
+    {
+        pArray->data[idx] = pArray->data[idx + 1];
+    }
+
+    if(pArray->len == pArray->capacity >> 1)
+    {
+        reduceArrayCapacity(pArray);
+    }
+
+    if(pArray->len == pArray->capacity >> 1)
+    {
+        reduceArrayCapacity(pArray);
+    }
+
+    pArray->len--;
+    return ret;
+}
+
+/* 动态数组销毁 */
+int dynamicArrayDestory(DynamicArray *pArray)
+{
+    int ret = 0;
+
+
+    return ret;
+}
+
+/* 动态数组获取指定位置的数据 */
+int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
+{
+    int ret = 0;
+    CHECK_PTR(pArray);
+    /* 判断位置是否合法 */
+    if (pos < 0 || pos > pArray->len)
+    {   
+        return -1;
+    }
+    *pVal = pArray->data[pos];
+    return ret;
+}
+
+/* 获取动态数组的大小和容量 */
+int dynamicArrayGetInfo(DynamicArray *pArray, int *pCap, int * pSize)
+{
+    int ret;
+    CHECK_PTR(pArray);
+    CHECK_PTR(pCap);
+    CHECK_PTR(pSize);
+
+    *pCap = pArray->capacity;
+    *pSize = pArray->len;
+    return ret;
+}
+
+/* 修改动态数组指定位置的值 */
+int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
+{
+    int ret;
+
+    return ret;
+}
