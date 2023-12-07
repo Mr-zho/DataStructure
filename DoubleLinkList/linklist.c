@@ -81,20 +81,14 @@ int linkListAppointPosInsert(linkList *pList, int pos, int val)
         travel = travel->next;
     }
 
+    newnode->next = travel->next;       // 1
     /* 没有结点的情况下 */
-    if (pList->len == 0 || pos == pList->len)
+    if ((pList->len != 0) && (pos != pList->len))
     {
-        newnode->next = travel->next;       // 1
-        newnode->prev = travel;             // 3
-        travel->next = newnode;             // 4
-    }
-    else
-    {
-        newnode->next = travel->next;       // 1
         travel->next->prev = newnode;       // 2
-        newnode->prev = travel;             // 3
-        travel->next = newnode;             // 4
     }
+    newnode->prev = travel;             // 3
+    travel->next = newnode;             // 4
 
     /* 更新长度 */
     (pList->len)++;
