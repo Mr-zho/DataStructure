@@ -45,15 +45,4 @@ int linkListSeqForeach(linkList *pList);
 /* 逆序遍历链表 */
 int linkListReverseForeach(linkList *pList);
 
-/* 头删 */
-int linkListHeadDel(linkList *pList);
-
-/* 尾删 */
-int linkListTailDel(linkList *pList);
-
-/* 任意位置删除 */
-int linkListAppointPosDel(linkList *pList, int pos);
-
-/* 链表销毁 */
-int linkListDestory(linkList *pList);
 #endif  //__LINKLIST_H_
