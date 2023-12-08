@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "linklist.h"
+#include "doublelinklist.h"
 #include <pthread.h>
 
 #define linkList_NUM 10
@@ -9,8 +9,9 @@ int main()
 {
     linkList *list = NULL;
     linkListInit(&list);
-
+    
     int ret = 0;
+#if 0
     for (int idx = 1; idx <= linkList_NUM; idx++)
     {
         ret = linkListAppointPosInsert(list, 0, idx);
@@ -19,9 +20,13 @@ int main()
             printf("ret:%d\n", ret);
         }
     }
-
+#endif
     /* 中间插 */
-    ret = linkListAppointPosInsert(list, 6, 666);
+    ret = linkListAppointPosInsert(list, 0, 666);
+
+    linkListHeadInsert(list, 7);
+
+    linkListTailInsert(list, 888);
 
     // int length = 0;
     // for (int idx = 100; idx <= 100 + linkList_NUM; idx++)

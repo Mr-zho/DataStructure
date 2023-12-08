@@ -1,4 +1,4 @@
-#include "linklist.h"
+#include "doublelinklist.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -74,6 +74,8 @@ int linkListAppointPosInsert(linkList *pList, int pos, int val)
         return INVAILD_ACCESS;
     }
 
+    /* 备份一下pos的位置 */
+    int tmpPos = pos;
     Node * travel = pList->head;
     while (pos)
     {
@@ -83,7 +85,7 @@ int linkListAppointPosInsert(linkList *pList, int pos, int val)
 
     newnode->next = travel->next;       // 1
     /* 没有结点的情况下 */
-    if ((pList->len != 0) && (pos != pList->len))
+    if ((pList->len != 0) && (tmpPos != pList->len))
     {
         travel->next->prev = newnode;       // 2
     }
