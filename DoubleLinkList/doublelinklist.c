@@ -236,3 +236,46 @@ int doubleLinkListDestory(linkList *pList)
 
     return ret;
 }
+
+
+/* 获取链表 头部数据 */
+int doubleLinkListGetHeadVal(linkList *pList, int *pVal)
+{
+    return doubleLinkListGetAppointPosVal(pList, 1, pVal);
+}
+
+/* 获取链表 尾部数据 */
+int doubleLinkListGetTailVal(linkList *pList, int *pVal)
+{
+    int len = pList->len;
+    return doubleLinkListGetAppointPosVal(pList, len, pVal);
+}
+
+/* 获取链表 指定位置数据 */
+int doubleLinkListGetAppointPosVal(linkList *pList, int pos, int *pVal)
+{
+    int ret = 0;
+    if (!pList)
+    {
+        return NULL_PTR;
+    }
+
+    if (pos < 0 || pos > pList->len)
+    {
+        return INVAILD_ACCESS;
+    }
+
+    Node * travel = pList->head;
+    while(pos)
+    {
+        pos--;
+        travel = travel->next;
+    }
+
+    if (pVal)
+    {
+        *pVal = travel->val;
+    }
+    
+    return ret;
+}

@@ -63,5 +63,17 @@ int main()
     doubleLinkListSeqForeach(list);
     doubleLinkListReverseForeach(list);
 
+    int headVal = 0;
+    doubleLinkListGetHeadVal(list, &headVal);
+    printf("headVal:%d\n", headVal);
+
+    int tailVal = 0;
+    doubleLinkListGetTailVal(list, &tailVal);
+    printf("tailVal:%d\n", tailVal);
+
+    int appointPosVal = 0;
+    doubleLinkListGetAppointPosVal(list, 4, &appointPosVal);
+    printf("appointPosVal:%d\n", appointPosVal);
+
     doubleLinkListDestory(list);
 }

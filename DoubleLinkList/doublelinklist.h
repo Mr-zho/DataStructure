@@ -57,4 +57,13 @@ int doubleLinkListAppointPosDel(linkList *pList, int pos);
 /* 链表销毁 */
 int doubleLinkListDestory(linkList *pList);
 
+/* 获取链表 头部数据 */
+int doubleLinkListGetHeadVal(linkList *pList, int *pVal);
+
+/* 获取链表 尾部数据 */
+int doubleLinkListGetTailVal(linkList *pList, int *pVal);
+
+/* 获取链表 指定位置数据 */
+int doubleLinkListGetAppointPosVal(linkList *pList, int pos, int *pVal);
+
 #endif  //__LINKLIST_H_
