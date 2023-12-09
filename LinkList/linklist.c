@@ -116,3 +116,34 @@ int linkListForeach(linkList *pList)
     return ret;
 }
 
+/* 头删 */
+int linkListHeadDel(linkList *pList)
+{
+    int ret;
+
+    return ret;
+}
+
+/* 尾删 */
+int linkListTailDel(linkList *pList)
+{
+    int ret;
+
+    return ret;
+}
+
+/* 按指定位置删除 */
+int linkListAppointPosDel(linkList *pList)
+{
+    int ret;
+
+    return ret;
+}
+
+/* 链表销毁 */
+int linkListDestroy(linkList *pList)
+{
+    int ret = 0;
+
+    return ret;
+}

@@ -40,4 +40,16 @@ int linkListGetLength(linkList *pList, int *pLen);
 /* 遍历链表 */
 int linkListForeach(linkList *pList);
 
+/* 头删 */
+int linkListHeadDel(linkList *pList);
+
+/* 尾删 */
+int linkListTailDel(linkList *pList);
+
+/* 按指定位置删除 */
+int linkListAppointPosDel(linkList *pList);
+
+/* 链表销毁 */
+int linkListDestroy(linkList *pList);
+
 #endif  //__LINKLIST_H_
