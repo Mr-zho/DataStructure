@@ -38,14 +38,14 @@ int doubleLinkListInit(linkList **pList)
 /* 头插 */
 int doubleLinkListHeadInsert(linkList *pList, int val)
 {
-    return linkListAppointPosInsert(pList, 0, val);
+    return doubleLinkListAppointPosInsert(pList, 0, val);
 }
 
 /* 尾巴 */
 int doubleLinkListTailInsert(linkList *pList, int val)
 {
     int pos = pList->len;
-    return linkListAppointPosInsert(pList, pos, val);
+    return doubleLinkListAppointPosInsert(pList, pos, val);
 }
 
 /* 指定位置插 */
@@ -159,7 +159,7 @@ int doubleLinkListReverseForeach(linkList *pList)
 int doubleLinkListHeadDel(linkList *pList)
 {
     int ret = 0;
-    return linkListAppointPosDel(pList, 0);
+    return doubleLinkListAppointPosDel(pList, 1);
 }
 
 /* 尾删 */
@@ -167,13 +167,40 @@ int doubleLinkListTailDel(linkList *pList)
 {
     int ret = 0;
     int pos = pList->len;
-    return linkListAppointPosDel(pList, pos);
+    return doubleLinkListAppointPosDel(pList, pos);
 }
 
 /* 任意位置删除 */
 int doubleLinkListAppointPosDel(linkList *pList, int pos)
 {
     int ret = 0;
+
+    if (!pList)
+    {
+        return NULL_PTR;
+    }
+
+    if (pos < 0 || pos > pList->len)
+    {
+        return INVAILD_ACCESS;
+    }
+
+    Node * travelNode = pList->head;
+    while(pos--)
+    {
+        travelNode = travelNode->next;
+    }
+    /* 修改*/
+    travelNode->prev->next = travelNode->next;
+    if (travelNode->next)
+    {
+        travelNode->next->prev = travelNode->prev;
+    }
+    free(travelNode);
+    travelNode = NULL;
+
+    /* 链表长度减一 */
+    pList->len--;
 
     return ret;
 }
@@ -182,18 +209,25 @@ int doubleLinkListAppointPosDel(linkList *pList, int pos)
 int doubleLinkListDestory(linkList *pList)
 {
     int ret = 0;
+    if (!pList)
+    {
+        return NULL_PTR;
+    }
+
     int len = pList->len;
     for (int idx = 0; idx < len; idx++)
     {
-        linkListHeadDel(pList);
+        doubleLinkListHeadDel(pList);
     }
- 
+    
+    /* 释放虚拟头结点 */
     if (pList->head)
     {
         free(pList->head);
         pList->head = NULL;
     }
 
+    /* 释放链表  */
     if (pList)
     {
         free(pList);

@@ -3,12 +3,12 @@
 #include "doublelinklist.h"
 #include <pthread.h>
 
-#define linkList_NUM 10
+#define linkList_NUM 3
 
 int main()
 {
     linkList *list = NULL;
-    linkListInit(&list);
+    doubleLinkListInit(&list);
     
     int ret = 0;
 #if 0
@@ -21,12 +21,19 @@ int main()
         }
     }
 #endif
-    /* 中间插 */
-    ret = linkListAppointPosInsert(list, 0, 666);
 
-    linkListHeadInsert(list, 7);
+    for (int idx = 1; idx <= linkList_NUM; idx++)
+    {
+        doubleLinkListHeadInsert(list, idx);
+    }
 
-    linkListTailInsert(list, 888);
+    /* 指定位置插入 */
+    ret = doubleLinkListAppointPosInsert(list, 1, 666);
+
+    for (int idx = 100; idx <= linkList_NUM + 100; idx++)
+    {
+        doubleLinkListTailInsert(list, idx);
+    }
 
     // int length = 0;
     // for (int idx = 100; idx <= 100 + linkList_NUM; idx++)
@@ -39,8 +46,22 @@ int main()
     //     }
     // }
     /* 顺序打印 */
-    linkListSeqForeach(list);
+    doubleLinkListSeqForeach(list);
 
     /* 逆序打印 */
-    linkListReverseForeach(list);
+    doubleLinkListReverseForeach(list);
+
+    printf("\n");
+    /* 头删 */
+    doubleLinkListHeadDel(list);
+    doubleLinkListSeqForeach(list);
+    doubleLinkListReverseForeach(list);
+
+    printf("\n");
+    /* 尾删 */
+    doubleLinkListTailDel(list);
+    doubleLinkListSeqForeach(list);
+    doubleLinkListReverseForeach(list);
+
+    doubleLinkListDestory(list);
 }
