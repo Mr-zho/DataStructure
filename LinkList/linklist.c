@@ -96,7 +96,6 @@ int linkListGetLength(linkList *pList, int *pLen)
     return ret;
 }
 
-
 /* 遍历链表 */
 int linkListForeach(linkList *pList)
 {
@@ -170,11 +169,40 @@ int linkListAppointPosDel(linkList *pList, int pos)
     free(delNode);
     delNode = NULL;
 
+    /* 数据结点减一 */
+    pList->len--;
+
     return ret;
 }
 
 /* 链表销毁 */
 int linkListDestroy(linkList *pList)
+{
+    int ret = 0;
+    
+    int length = pList->len;
+    for (int idx = 0; idx < length; idx++)
+    {
+        linkListHeadDel(pList);
+    }
+
+    /* 释放虚拟头结点 */
+    if (pList->head)
+    {
+        free(pList->head);
+        pList->head = NULL;
+    }
+
+    if (pList)
+    {
+        free(pList);
+        pList = NULL;
+    }
+    return ret;
+}
+
+/* 链表删除指定数据 */
+int linkListAppointValDel(linkList *pList, int val)
 {
     int ret = 0;
 

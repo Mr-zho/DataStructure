@@ -52,4 +52,7 @@ int linkListAppointPosDel(linkList *pList, int pos);
 /* 链表销毁 */
 int linkListDestroy(linkList *pList);
 
+/* 链表删除指定数据 */
+int linkListAppointValDel(linkList *pList, int val);
+
 #endif  //__LINKLIST_H_

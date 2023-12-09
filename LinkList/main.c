@@ -34,11 +34,23 @@ int main()
     }
     linkListForeach(list);
 
+    int linkLen = 0;
+    linkListGetLength(list, &linkLen);
+    printf("len:%d\n", linkLen);
+
+
     /* 尾删 */
     linkListTailDel(list);
     linkListForeach(list);
+    linkListGetLength(list, &linkLen);
+    printf("len:%d\n", linkLen);
 
     /* 头删 */
     linkListHeadDel(list);
     linkListForeach(list);
+    linkListGetLength(list, &linkLen);
+    printf("len:%d\n", linkLen);
+
+    /* 链表销毁 */
+    linkListDestroy(list);
 }
