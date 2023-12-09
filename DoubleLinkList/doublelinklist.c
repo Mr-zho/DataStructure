@@ -3,9 +3,9 @@
 #include <string.h>
 #include <stdio.h>
 
-
+/* command + K + 0 */
 /* 链表的初始化 */
-int linkListInit(linkList **pList)
+int doubleLinkListInit(linkList **pList)
 {
     int ret = 0;
     linkList *plist = (linkList *)malloc(sizeof(linkList) * 1);    
@@ -36,20 +36,20 @@ int linkListInit(linkList **pList)
 }
 
 /* 头插 */
-int linkListHeadInsert(linkList *pList, int val)
+int doubleLinkListHeadInsert(linkList *pList, int val)
 {
     return linkListAppointPosInsert(pList, 0, val);
 }
 
 /* 尾巴 */
-int linkListTailInsert(linkList *pList, int val)
+int doubleLinkListTailInsert(linkList *pList, int val)
 {
     int pos = pList->len;
     return linkListAppointPosInsert(pList, pos, val);
 }
 
 /* 指定位置插 */
-int linkListAppointPosInsert(linkList *pList, int pos, int val)
+int doubleLinkListAppointPosInsert(linkList *pList, int pos, int val)
 {
     int ret = 0;
     if (!pList)
@@ -98,7 +98,7 @@ int linkListAppointPosInsert(linkList *pList, int pos, int val)
 }
 
 /* 获取链表的数据 */
-int linkListGetLength(linkList *pList, int *pLen)
+int doubleLinkListGetLength(linkList *pList, int *pLen)
 {
     int ret;
     if (!pList || !pLen)
@@ -110,9 +110,8 @@ int linkListGetLength(linkList *pList, int *pLen)
     return ret;
 }
 
-
 /* 顺序遍历链表 */
-int linkListSeqForeach(linkList *pList)
+int doubleLinkListSeqForeach(linkList *pList)
 {
     int ret = 0;
     if (!pList)
@@ -130,8 +129,8 @@ int linkListSeqForeach(linkList *pList)
     return ret;
 }
 
-
-int linkListReverseForeach(linkList *pList)
+/* 逆序遍历链表 */
+int doubleLinkListReverseForeach(linkList *pList)
 {
     int ret = 0;
     if (!pList)
@@ -157,14 +156,14 @@ int linkListReverseForeach(linkList *pList)
 }
 
 /* 头删 */
-int linkListHeadDel(linkList *pList)
+int doubleLinkListHeadDel(linkList *pList)
 {
     int ret = 0;
     return linkListAppointPosDel(pList, 0);
 }
 
 /* 尾删 */
-int linkListTailDel(linkList *pList)
+int doubleLinkListTailDel(linkList *pList)
 {
     int ret = 0;
     int pos = pList->len;
@@ -172,7 +171,7 @@ int linkListTailDel(linkList *pList)
 }
 
 /* 任意位置删除 */
-int linkListAppointPosDel(linkList *pList, int pos)
+int doubleLinkListAppointPosDel(linkList *pList, int pos)
 {
     int ret = 0;
 
@@ -180,7 +179,7 @@ int linkListAppointPosDel(linkList *pList, int pos)
 }
 
 /* 链表销毁 */
-int linkListDestory(linkList *pList)
+int doubleLinkListDestory(linkList *pList)
 {
     int ret = 0;
     int len = pList->len;

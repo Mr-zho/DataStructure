@@ -25,35 +25,36 @@ typedef struct linkList
 } linkList;
 
 /* 链表的初始化 */
-int linkListInit(linkList **pList);
+int doubleLinkListInit(linkList **pList);
 
 /* 头插 */
-int linkListHeadInsert(linkList *pList, int val);
+int doubleLinkListHeadInsert(linkList *pList, int val);
 
 /* 尾插 */
-int linkListTailInsert(linkList *pList, int val);
+int doubleLinkListTailInsert(linkList *pList, int val);
 
 /* 指定位置插入 */
-int linkListAppointPosInsert(linkList *pList, int pos, int val);
+int doubleLinkListAppointPosInsert(linkList *pList, int pos, int val);
 
 /* 获取链表的数据 */
-int linkListGetLength(linkList *pList, int *pLen);
+int doubleLinkListGetLength(linkList *pList, int *pLen);
 
 /* 顺序遍历链表 */
-int linkListSeqForeach(linkList *pList);
+int doubleLinkListSeqForeach(linkList *pList);
 
 /* 逆序遍历链表 */
-int linkListReverseForeach(linkList *pList);
+int doubleLinkListReverseForeach(linkList *pList);
 
 /* 头删 */
-int linkListHeadDel(linkList *pList);
+int doubleLinkListHeadDel(linkList *pList);
 
 /* 尾删 */
-int linkListTailDel(linkList *pList);
+int doubleLinkListTailDel(linkList *pList);
 
 /* 任意位置删除 */
-int linkListAppointPosDel(linkList *pList, int pos);
+int doubleLinkListAppointPosDel(linkList *pList, int pos);
 
 /* 链表销毁 */
-int linkListDestory(linkList *pList);
+int doubleLinkListDestory(linkList *pList);
+
 #endif  //__LINKLIST_H_
