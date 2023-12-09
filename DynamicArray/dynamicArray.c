@@ -153,8 +153,11 @@ int dynamicArrayDelAppointPos(DynamicArray *pArray, int pos)
 int dynamicArrayDestory(DynamicArray *pArray)
 {
     int ret = 0;
-
-
+    if (pArray->data)
+    {
+        free(pArray->data);
+        pArray->data = NULL;
+    }
     return ret;
 }
 
@@ -192,3 +195,27 @@ int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
 
     return ret;
 }
+
+
+/* 获取动态数组的容量 */
+int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap)
+{
+    int ret;
+    CHECK_PTR(pArray);
+    CHECK_PTR(pCap);
+
+    *pCap = pArray->capacity;
+    return ret;
+}
+
+/* 获取动态数组的大小 */
+int dynamicArrayGetSize(DynamicArray *pArray, int * pSize)
+{
+    int ret;
+    CHECK_PTR(pArray);
+    CHECK_PTR(pSize);
+
+    *pSize = pArray->len;
+    return ret;
+}
+

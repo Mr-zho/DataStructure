@@ -3,7 +3,7 @@
 #include "dynamicArray.h"
 #include <pthread.h>
 
-#define DEFAULT_NUM    10
+#define DEFAULT_NUM    2
 
 int main(int argc, const char *argv[])
 {
@@ -13,20 +13,20 @@ int main(int argc, const char *argv[])
 
 
     /* 插入 */
-    for (int idx = 1; idx <= (DEFAULT_NUM << 2); idx++)
+    for (int idx = 1; idx <= DEFAULT_NUM << 1; idx++)
     {
         dynamicArrayInsert(&array, idx);
     }
 
-    /* */
+    int arraySize = 0;
+    dynamicArrayGetSize(&array, &arraySize);
+    printf("arraySize:%d\n", arraySize);
+
+
     int val = 0;
-    dynamicArrayGetAppointPosVal(&array, 25, &val);
+    dynamicArrayGetAppointPosVal(&array, arraySize - 1, &val);
     printf("val:%d\n", val);
-
-
-    int capacity = 0, size = 0;
-    dynamicArrayGetInfo(&array, &capacity, &size);
-    printf("capacity:%d, size:%d\n", capacity, size);
+    dynamicArrayDestory(&array);
 
     return 0;
 }

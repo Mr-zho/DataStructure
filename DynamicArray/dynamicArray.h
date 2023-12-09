@@ -2,7 +2,7 @@
 #define __DYNAMICARRAY_H_
 
 #if 1
-#define ELEMENTTYPE void*
+#define ELEMENTTYPE int
 #else
 typedef int ELEMENTTYPE;
 #endif
@@ -34,6 +34,12 @@ int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, int *pVal);
 
 /* 获取动态数组的大小和容量 */
 int dynamicArrayGetInfo(DynamicArray *pArray, int *pCap, int * pSize);
+
+/* 获取动态数组的容量 */
+int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap);
+
+/* 获取动态数组的大小 */
+int dynamicArrayGetSize(DynamicArray *pArray, int * pSize);
 
 /* 修改动态数组指定位置的值 */
 int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal);
