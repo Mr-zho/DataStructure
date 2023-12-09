@@ -70,14 +70,14 @@ int linkListAppointPosInsert(linkList *pList, int pos, int val)
         return INVAILD_ACCESS;
     }
 
-    Node * travel = pList->head;
+    Node * travelNode = pList->head;
     while (pos)
     {
         pos--;
-        travel = travel->next;
+        travelNode = travelNode->next;
     }
-    newnode->next = travel->next;
-    travel->next = newnode;
+    newnode->next = travelNode->next;
+    travelNode->next = newnode;
     /* 更新长度 */
     (pList->len)++;
     return ret;
@@ -106,11 +106,11 @@ int linkListForeach(linkList *pList)
         return -1;
     }
 
-    Node *travel = pList->head->next;
-    while(travel != NULL)
+    Node *travelNode = pList->head->next;
+    while(travelNode != NULL)
     {
-        printf("%d\t->", travel->val);
-        travel = travel->next;
+        printf("%d\t->", travelNode->val);
+        travelNode = travelNode->next;
     }
     printf("\n");
     return ret;
@@ -120,7 +120,7 @@ int linkListForeach(linkList *pList)
 int linkListHeadDel(linkList *pList)
 {
     int ret;
-
+    ret = linkListAppointPosDel(pList, 1);
     return ret;
 }
 
@@ -128,14 +128,47 @@ int linkListHeadDel(linkList *pList)
 int linkListTailDel(linkList *pList)
 {
     int ret;
-
+    int pos = pList->len;
+    ret = linkListAppointPosDel(pList, pos);
     return ret;
 }
 
 /* 按指定位置删除 */
-int linkListAppointPosDel(linkList *pList)
+int linkListAppointPosDel(linkList *pList, int pos)
 {
     int ret;
+    if (!pList)
+    {
+        return NULL_PTR;
+    }
+    if (pos < 0 || pos > pList->len)
+    {
+        return INVAILD_ACCESS;
+    }   
+
+#if 0
+    /* 双指针 */
+    Node * travelNode = pList->head->next;
+    Node * prevNode = pList->head;
+    while (--pos)
+    {
+        prevNode =  travelNode;
+        travelNode = travelNode->next;
+    }
+    /* 更换结点指针 */
+    prevNode->next = travelNode->next;
+#else
+    Node * travelNode = pList->head;
+    /* 此循环是找到删除结点的前一个结点 */
+    while (--pos)
+    {
+        travelNode = travelNode->next;
+    }
+    Node * delNode = travelNode->next;
+    travelNode->next = delNode->next;
+#endif
+    free(delNode);
+    delNode = NULL;
 
     return ret;
 }

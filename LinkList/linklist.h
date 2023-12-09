@@ -47,7 +47,7 @@ int linkListHeadDel(linkList *pList);
 int linkListTailDel(linkList *pList);
 
 /* 按指定位置删除 */
-int linkListAppointPosDel(linkList *pList);
+int linkListAppointPosDel(linkList *pList, int pos);
 
 /* 链表销毁 */
 int linkListDestroy(linkList *pList);
