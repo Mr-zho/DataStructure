@@ -63,8 +63,13 @@ static int expandArrayCapacity(DynamicArray *pArray)
         pArray->data[idx] = tmpArray[idx];
     }
     pArray->capacity = expandNum;
-    free(tmpArray);
-    tmpArray = NULL;
+
+    /* 释放堆空间内存 */
+    if (tmpArray)
+    {
+        free(tmpArray);
+        tmpArray = NULL;
+    }
 
     return ret;
 }
@@ -103,22 +108,32 @@ static int reduceArrayCapacity(DynamicArray *pArray)
 /* 动态数组插入 (默认插入到最后位置) */
 int dynamicArrayInsert(DynamicArray *pArray, ELEMENTTYPE val)
 {
-    int ret = 0;
-    CHECK_PTR(pArray);
-    /* 扩容 */
-    if (pArray->len == (pArray->capacity >> 1))
-    {
-        expandArrayCapacity(pArray);
-    }
-    pArray->data[(pArray->len)++] = val;
-    return ret;
+    return dynamicArrayAppointPosInsert(pArray, pArray->len, val);
 }
 
 /* 动态数组插入 在指定位置插入数据 */
 int dynamicArrayAppointPosInsert(DynamicArray *pArray, int pos, ELEMENTTYPE val)
 {
     int ret = 0;
-    /* todo... */
+    CHECK_PTR(pArray);
+
+    if (pos < 0 || pos > pArray->len)
+    {
+        return INVAILD_ACCESS;
+    }
+    /* 扩容 */
+    if (pArray->len >= (pArray->capacity >> 1))
+    {
+        expandArrayCapacity(pArray);
+    }
+
+    /* 将pos后面的位置 进行后移 腾出pos位置给当前原元素使用 */
+    for (int idx = pos; idx < pArray->len; idx++)
+    {
+        pArray->data[idx + 1] = pArray->data[idx];
+    }
+    pArray->data[pos] = val;
+
     return ret;
 }
 
@@ -190,10 +205,15 @@ int dynamicArrayGetInfo(DynamicArray *pArray, int *pCap, int * pSize)
 }
 
 /* 修改动态数组指定位置的值 */
-int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
+int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int val)
 {
     int ret;
-    /* todo... */
+    CHECK_PTR(pArray);
+    if (pos < 0 || pos > pArray->len - 1)
+    {
+        return INVAILD_ACCESS;
+    }
+    pArray->data[pos] = val;
     return ret;
 }
 

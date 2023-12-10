@@ -52,6 +52,6 @@ int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap);
 int dynamicArrayGetSize(DynamicArray *pArray, int * pSize);
 
 /* 修改动态数组指定位置的值 */
-int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal);
+int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int val);
 
 #endif // __DYNAMICARRAY_H_
