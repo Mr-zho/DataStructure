@@ -14,6 +14,16 @@ typedef struct DynamicArray
 } DynamicArray;
 
 
+/* 状态码 */
+enum STATUSCODE
+{
+    ON_SUCCESS,
+    NULL_PTR,
+    MALLOC_ERR,
+    INVAILD_ACCESS,
+};
+
+
 /* 动态数组初始化 */
 int dynamicArrayInit(DynamicArray *pArray);
 

@@ -75,23 +75,27 @@ static int reduceArrayCapacity(DynamicArray *pArray)
     CHECK_PTR(pArray);
     int ret = 0;
 
-    int reduceNum = pArray->capacity >> 1;
-    ELEMENTTYPE * temArray = pArray->data;
-
+    int needReduceNum = pArray->capacity >> 1;
+    ELEMENTTYPE * tmpArray = pArray->data;
+    pArray->data = (ELEMENTTYPE *)malloc(sizeof(ELEMENTTYPE) * needReduceNum);
     if (!(pArray->data))
     {
         return -1;
     }
-    memset(pArray->data, 0, sizeof(ELEMENTTYPE) * reduceNum);
+    memset(pArray->data, 0, sizeof(ELEMENTTYPE) * needReduceNum);
 
-    for(int idx = 0; idx < reduceNum; idx++)
+    for(int idx = 0; idx < pArray->len; idx++)
     {
-        pArray->data[idx] = temArray[idx];
+        pArray->data[idx] = tmpArray[idx];
     }
 
-    free(temArray);
-    temArray = NULL;
-
+    if (tmpArray)
+    {   
+        free(tmpArray);
+        tmpArray = NULL;
+    }
+    /* 更新动态数组capacity的大小 */
+    pArray->capacity = needReduceNum;
     return ret;
 }
 
@@ -114,7 +118,7 @@ int dynamicArrayInsert(DynamicArray *pArray, ELEMENTTYPE val)
 int dynamicArrayAppointPosInsert(DynamicArray *pArray, int pos, ELEMENTTYPE val)
 {
     int ret = 0;
-
+    /* todo... */
     return ret;
 }
 
@@ -127,22 +131,19 @@ int dynamicArrayDelAppointPos(DynamicArray *pArray, int pos)
     /* 判断pos的位置 : 删除失败 */
     if (pos < 0 || pos > pArray->len)
     {
-        return -1;
+        return INVAILD_ACCESS;
     }
     
-    for(int idx = pos; idx <= pArray->len-pos; idx++)
+    /* 缩容 */
+    if(pArray->len <= pArray->capacity >> 1)
+    {
+        reduceArrayCapacity(pArray);
+    }
+
+    /* 将pos位置后的数据前移 */
+    for(int idx = pos; idx <= pArray->len; idx++)
     {
         pArray->data[idx] = pArray->data[idx + 1];
-    }
-
-    if(pArray->len == pArray->capacity >> 1)
-    {
-        reduceArrayCapacity(pArray);
-    }
-
-    if(pArray->len == pArray->capacity >> 1)
-    {
-        reduceArrayCapacity(pArray);
     }
 
     pArray->len--;
@@ -192,7 +193,7 @@ int dynamicArrayGetInfo(DynamicArray *pArray, int *pCap, int * pSize)
 int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
 {
     int ret;
-
+    /* todo... */
     return ret;
 }
 
