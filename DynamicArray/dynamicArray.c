@@ -134,6 +134,7 @@ int dynamicArrayAppointPosInsert(DynamicArray *pArray, int pos, ELEMENTTYPE val)
     }
     pArray->data[pos] = val;
 
+    pArray->len++;
     return ret;
 }
 
