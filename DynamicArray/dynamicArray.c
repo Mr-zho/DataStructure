@@ -178,7 +178,7 @@ int dynamicArrayDestory(DynamicArray *pArray)
 }
 
 /* 动态数组获取指定位置的数据 */
-int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
+int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, ELEMENTTYPE *pVal)
 {
     int ret = 0;
     CHECK_PTR(pArray);
@@ -187,7 +187,12 @@ int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, int *pVal)
     {   
         return -1;
     }
-    *pVal = pArray->data[pos];
+    
+    /* 判空 */
+    if (pVal)
+    {
+        *pVal = pArray->data[pos];
+    }
     return ret;
 }
 
@@ -205,7 +210,7 @@ int dynamicArrayGetInfo(DynamicArray *pArray, int *pCap, int * pSize)
 }
 
 /* 修改动态数组指定位置的值 */
-int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int val)
+int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, ELEMENTTYPE val)
 {
     int ret;
     CHECK_PTR(pArray);
@@ -216,7 +221,6 @@ int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int val)
     pArray->data[pos] = val;
     return ret;
 }
-
 
 /* 获取动态数组的容量 */
 int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap)

@@ -5,8 +5,15 @@
 
 #define DEFAULT_NUM    10
 
+typedef struct StuInfo
+{
+    int age;
+    char sex;
+} StuInfo;
+
 int main(int argc, const char *argv[])
 {
+#if 0
     DynamicArray array;
     /* 初始化 */
     dynamicArrayInit(&array);
@@ -71,6 +78,43 @@ int main(int argc, const char *argv[])
 
     
     dynamicArrayDestory(&array);
+#else
+    StuInfo stu1, stu2, stu3;
 
+    {
+        stu1.age = 10;
+        stu1.sex = 'm';
+    
+    }
+    {
+        stu2.age = 20;
+        stu2.sex = 'f';
+    }
+    {
+        stu3.age = 30;
+        stu3.sex = 'm';
+    }
+
+    /* 动态数组 */
+    DynamicArray array;
+    /* 初始化 */
+    dynamicArrayInit(&array);
+    int arrayCapacity = 0;
+    dynamicArrayGetCapacity(&array, &arrayCapacity);
+    printf("arrayCapacity:%d\n", arrayCapacity);
+
+    /* 插入 */
+    for (int idx = 1; idx <= DEFAULT_NUM << 1; idx++)
+    {
+        dynamicArrayInsert(&array, (void *)&stu1);
+    }
+
+    int pos = 0;
+    StuInfo * info = NULL;
+    dynamicArrayGetAppointPosVal(&array, pos, (void*)&info);
+    printf("info.age = %d\n", info->age);
+    printf("info.age = %c\n", info->sex);
+    
+#endif
     return 0;
 }
