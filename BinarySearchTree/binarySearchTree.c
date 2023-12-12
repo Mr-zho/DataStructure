@@ -12,6 +12,11 @@ int binarySearchTreeInit(BinarySearchTree *pBSTree)
     return ret;
 }
 
+static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2)
+{
+    return val1 - val2;
+}
+
 /* 二叉搜索树新增元素 */
 int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
@@ -25,13 +30,15 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 
     Node *travelNode = pBSTree->root;
     
+    int cmp = 0;
     while (travelNode != NULL)
     {
-        if (val < travelNode->val)
+        cmp = nodeCompare(val, travelNode->val);
+        if (cmp < 0)
         {
             travelNode = travelNode->left;
         }
-        else if (val > travelNode->val)
+        else if (cmp > 0)
         {
             travelNode = travelNode->right;
         }
@@ -39,6 +46,17 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
         {
             return ret;
         }
+    }
+
+    if (cmp < 0)
+    {
+        /* 新结点插入到左子树 */
+        
+    }
+    else
+    {
+        /* 新结点插入到左子树 */
+
     }
     return ret;
 }
