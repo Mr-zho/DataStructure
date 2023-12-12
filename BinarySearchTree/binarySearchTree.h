@@ -36,5 +36,16 @@ int binarySearchTreeIsNull(BinarySearchTree *pBSTree);
 /* 二叉搜索树元素的个数 */
 int binarySearchTreeGetSize(BinarySearchTree *pBSTree);
 
+/* 前序遍历 */
+int binarySearchTreePreOrder(BinarySearchTree *pBSTree);
+
+/* 中序遍历 */
+int binarySearchTreeInOrder(BinarySearchTree *pBSTree);
+
+/* 后序遍历 */
+int binarySearchTreePostOrder(BinarySearchTree *pBSTree);
+
+/* 层序遍历 */
+int binarySearchTreeLevelOrder(BinarySearchTree *pBSTree);
 
 #endif  // __BINARY_SEARCH_TREE_H_

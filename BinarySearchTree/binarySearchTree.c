@@ -127,3 +127,63 @@ int binarySearchTreeGetSize(BinarySearchTree *pBSTree)
     }
     return pBSTree->size;
 }
+
+static void binarySearchTreePreOrder(Node *node)
+{   
+    /* 递归结束的条件 */
+    if (node == NULL)
+    {
+        return;
+    }
+    printf("%d\n", node->left);
+    binarySearchTreePreOrder(node->left);
+    binarySearchTreePreOrder(node->right);
+}
+/* 前序遍历 */
+/* 访问顺序: 根结点, 前序遍历左子树, 前序遍历右子树 */
+int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+    if (pBSTree == NULL)
+    {
+        return ret;
+    }
+    binarySearchTreePreOrder(pBSTree->root);
+    return ret;
+}
+
+static void binarySearchTreeInOrder(Node *node)
+{
+
+}
+
+/* 中序遍历 */
+/* 访问顺序: 遍历左子树, 根结点, 前序遍历右子树 */
+int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+
+static void binarySearchTreePostOrder(Node *node)
+{
+    
+}
+
+/* 后序遍历 */
+int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+/* 层序遍历 */
+int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
