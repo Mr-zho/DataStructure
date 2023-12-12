@@ -1,23 +1,40 @@
 #ifndef __BINARY_SEARCH_TREE_H_
 #define __BINARY_SEARCH_TREE_H_
+#include <stdio.h>
+
+#define ELEMENTTYPE int
+/* 树的结点 */
+typedef struct Node
+{
+    ELEMENTTYPE val;
+    struct Node * left;
+    struct Node * right;
+    struct Node * parent;
+}Node;
+
+typedef struct BinarySearchTree
+{
+    int size;       /* 结点的个数 */
+    Node * root;
+} BinarySearchTree;
 
 /* 二叉搜索树初始化 */
-int binarySearchTreeInit();
+int binarySearchTreeInit(BinarySearchTree *pBSTree);
 
 /* 二叉搜索树新增元素 */
-int binarySearchTreeInsert();
+int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树删除元素 */
-int binarySearchTreeRemove();
+int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树中是否包含指定元素 */
-int binarySearchTreeIsContainVal();
+int binarySearchTreeIsContainVal(BinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树是否为空树 */
-int binarySearchTreeIsNull();
+int binarySearchTreeIsNull(BinarySearchTree *pBSTree);
 
 /* 二叉搜索树元素的个数 */
-int binarySearchTreeGetSize();
+int binarySearchTreeGetSize(BinarySearchTree *pBSTree);
 
 
 #endif  // __BINARY_SEARCH_TREE_H_
