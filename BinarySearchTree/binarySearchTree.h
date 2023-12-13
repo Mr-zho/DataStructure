@@ -19,7 +19,7 @@ typedef struct BinarySearchTree
 } BinarySearchTree;
 
 /* 二叉搜索树初始化 */
-int binarySearchTreeInit(BinarySearchTree *pBSTree);
+int binarySearchTreeInit(BinarySearchTree **pBSTree);
 
 /* 二叉搜索树新增元素 */
 int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val);
@@ -37,15 +37,15 @@ int binarySearchTreeIsNull(BinarySearchTree *pBSTree);
 int binarySearchTreeGetSize(BinarySearchTree *pBSTree);
 
 /* 前序遍历 */
-int binarySearchTreePreOrder(BinarySearchTree *pBSTree);
+int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree);
 
 /* 中序遍历 */
-int binarySearchTreeInOrder(BinarySearchTree *pBSTree);
+int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree);
 
 /* 后序遍历 */
-int binarySearchTreePostOrder(BinarySearchTree *pBSTree);
+int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree);
 
 /* 层序遍历 */
-int binarySearchTreeLevelOrder(BinarySearchTree *pBSTree);
+int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree);
 
 #endif  // __BINARY_SEARCH_TREE_H_

@@ -5,10 +5,41 @@
 
 
 /* 二叉搜索树初始化 */
-int binarySearchTreeInit(BinarySearchTree *pBSTree)
+int binarySearchTreeInit(BinarySearchTree **pBSTree)
 {
     int ret = 0;
+    if (pBSTree == NULL)
+    {
+        return -1;
+    }
 
+    BinarySearchTree * pBst = (BinarySearchTree*)malloc(sizeof(BinarySearchTree) * 1);
+    if (pBst == NULL)
+    {
+        return -1;
+    }
+    memset(pBst, 0, sizeof(BinarySearchTree));
+    
+    pBst->root = (Node *)malloc(sizeof(Node) * 1);
+    if (!(pBst->root))
+    {
+        return -1;
+    }
+    memset(pBst->root, 0, sizeof(Node));
+    /* 初始化树的结点为0 */
+    {    
+        pBst->size = 0;
+    }
+
+    /* 初始化树的根结点 */
+    {
+        pBst->root->left = NULL;
+        pBst->root->right = NULL;
+        pBst->root->parent = NULL;
+        pBst->root->val = 0;
+    }
+
+    *pBSTree = pBst;
     return ret;
 }
 
@@ -45,6 +76,8 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
     if (pBSTree->size == 0)
     {
         pBSTree->root->val = val;
+        /* 树的结点加一 */
+        ++(pBSTree->size);
         return ret;
     }
 
@@ -135,10 +168,12 @@ static void binarySearchTreePreOrder(Node *node)
     {
         return;
     }
-    printf("%d\n", node->left);
+    /* 根结点 左子树 右子树 */
+    printf("%d\n", node->val);
     binarySearchTreePreOrder(node->left);
     binarySearchTreePreOrder(node->right);
 }
+
 /* 前序遍历 */
 /* 访问顺序: 根结点, 前序遍历左子树, 前序遍历右子树 */
 int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree)
