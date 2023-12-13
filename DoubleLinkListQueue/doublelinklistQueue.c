@@ -9,7 +9,7 @@ int doublelinklistQueueInit(doubleLinkListQueue ** pQueue)
 }
 
 /* 双向链表队列 入队 */
-int doublelinklistQueuePush(doubleLinkListQueue * pQueue, int val)
+int doublelinklistQueuePush(doubleLinkListQueue * pQueue, ELEMENTTYPE val)
 {
     return doubleLinkListTailInsert(pQueue, val);
 }
@@ -20,20 +20,17 @@ int doublelinklistQueuePop(doubleLinkListQueue * pQueue)
     return doubleLinkListHeadDel(pQueue);
 }
 
-
 /* 双向链表队列 队头元素 */
-int doublelinklistQueueTop(doubleLinkListQueue * pQueue, int *pVal)
+int doublelinklistQueueTop(doubleLinkListQueue * pQueue, ELEMENTTYPE *pVal)
 {
     return doubleLinkListGetHeadVal(pQueue, pVal);
 }
 
-
 /* 双向链表队列 队尾元素 */
-int doublelinklistQueueRear(doubleLinkListQueue * pQueue, int *pVal)
+int doublelinklistQueueRear(doubleLinkListQueue * pQueue, ELEMENTTYPE *pVal)
 {
     return doubleLinkListGetTailVal(pQueue, pVal);
 }
-
 
 /* 双向链表队列 大小 */
 int doublelinklistQueueSize(doubleLinkListQueue * pQueue, int *pSize)
@@ -41,7 +38,6 @@ int doublelinklistQueueSize(doubleLinkListQueue * pQueue, int *pSize)
     doubleLinkListGetLength(pQueue, pSize);
     return *pSize;
 }
-
 
 /* 双向链表队列 销毁 */
 int doublelinklistQueueDestory(doubleLinkListQueue * pQueue)

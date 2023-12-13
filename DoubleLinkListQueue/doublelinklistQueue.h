@@ -9,16 +9,16 @@ typedef struct linkList doubleLinkListQueue;
 int doublelinklistQueueInit(doubleLinkListQueue ** pQueue);
 
 /* 双向链表队列 入队 */
-int doublelinklistQueuePush(doubleLinkListQueue * pQueue, int val);
+int doublelinklistQueuePush(doubleLinkListQueue * pQueue, ELEMENTTYPE val);
 
 /* 双向链表队列 出队 */
 int doublelinklistQueuePop(doubleLinkListQueue * pQueue);
 
 /* 双向链表队列 队头元素 */
-int doublelinklistQueueTop(doubleLinkListQueue * pQueue, int *pVal);
+int doublelinklistQueueTop(doubleLinkListQueue * pQueue, ELEMENTTYPE *pVal);
 
 /* 双向链表队列 队尾元素 */
-int doublelinklistQueueRear(doubleLinkListQueue * pQueue, int *pVal);
+int doublelinklistQueueRear(doubleLinkListQueue * pQueue, ELEMENTTYPE *pVal);
 
 /* 双向链表队列 大小 */
 int doublelinklistQueueSize(doubleLinkListQueue * pQueue, int *pSize);

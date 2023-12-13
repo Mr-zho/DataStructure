@@ -10,6 +10,9 @@ enum STATUSCODE
     INVAILD_ACCESS,
 };
 
+/* 万能指针 */
+#define ELEMENTTYPE void*
+
 typedef struct node
 {
     int val;                /* 数据 */
@@ -28,13 +31,13 @@ typedef struct linkList
 int doubleLinkListInit(linkList **pList);
 
 /* 头插 */
-int doubleLinkListHeadInsert(linkList *pList, int val);
+int doubleLinkListHeadInsert(linkList *pList, ELEMENTTYPE val);
 
 /* 尾插 */
-int doubleLinkListTailInsert(linkList *pList, int val);
+int doubleLinkListTailInsert(linkList *pList, ELEMENTTYPE val);
 
 /* 指定位置插入 */
-int doubleLinkListAppointPosInsert(linkList *pList, int pos, int val);
+int doubleLinkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val);
 
 /* 获取链表的数据 */
 int doubleLinkListGetLength(linkList *pList, int *pLen);
@@ -58,13 +61,13 @@ int doubleLinkListAppointPosDel(linkList *pList, int pos);
 int doubleLinkListDestory(linkList *pList);
 
 /* 获取链表 头部数据 */
-int doubleLinkListGetHeadVal(linkList *pList, int *pVal);
+int doubleLinkListGetHeadVal(linkList *pList, ELEMENTTYPE *pVal);
 
 /* 获取链表 尾部数据 */
-int doubleLinkListGetTailVal(linkList *pList, int *pVal);
+int doubleLinkListGetTailVal(linkList *pList, ELEMENTTYPE *pVal);
 
 /* 获取链表 指定位置数据 */
-int doubleLinkListGetAppointPosVal(linkList *pList, int pos, int *pVal);
+int doubleLinkListGetAppointPosVal(linkList *pList, int pos, ELEMENTTYPE *pVal);
 
 
 #endif  //__LINKLIST_H_
