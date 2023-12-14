@@ -4,8 +4,9 @@
 #include <pthread.h>
 #include <string.h>
 
-#define DEFAULT_NUM    4
+#define DEFAULT_NUM    2
 #define BUFFER_SIZE    20
+#define BUFFER_OFFSET   100
 
 typedef struct StuInfo
 {
@@ -38,7 +39,7 @@ int main(int argc, const char *argv[])
     memset(nums, 0, sizeof(nums));
     for (int idx = 0; idx < DEFAULT_NUM; idx++)
     {
-        nums[idx] = idx + 100;
+        nums[idx] = idx + BUFFER_OFFSET;
     }
     for (int idx = 0; idx < DEFAULT_NUM; idx++)
     {
