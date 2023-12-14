@@ -97,19 +97,20 @@ int doubleLinkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val)
     return ret;
 }
 
-/* 获取链表的数据 */
+/* 获取链表的数据 此处的返回值返回的是:链表的长度 */
 int doubleLinkListGetLength(linkList *pList, int *pLen)
 {
     int ret;
     if (!pList || !pLen)
     {
-        return -1;
+        return 0;
     }
     /* 解引用 */
     *pLen = pList->len;
-    return ret;
+    return pList->len;
 }
 
+#if 0
 /* 顺序遍历链表 */
 int doubleLinkListSeqForeach(linkList *pList)
 {
@@ -128,7 +129,9 @@ int doubleLinkListSeqForeach(linkList *pList)
     printf("\n");
     return ret;
 }
+#endif
 
+#if 0
 /* 逆序遍历链表 */
 int doubleLinkListReverseForeach(linkList *pList)
 {
@@ -154,7 +157,7 @@ int doubleLinkListReverseForeach(linkList *pList)
     
     return ret;
 }
-
+#endif
 /* 头删 */
 int doubleLinkListHeadDel(linkList *pList)
 {

@@ -15,7 +15,7 @@ enum STATUSCODE
 
 typedef struct node
 {
-    int val;                /* 数据 */
+    ELEMENTTYPE val;                /* 数据 */
     struct node * prev;     /* 前置指针 */
     struct node * next;     /* 后置指针 */
 } Node;
