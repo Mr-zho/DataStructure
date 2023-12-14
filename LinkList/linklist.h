@@ -20,7 +20,7 @@ enum STATUSCODE
 
 typedef struct node
 {
-    int val;                /* 数据 */
+    ELEMENTTYPE val;                /* 数据 */
     struct node * next;     /* 指针 */
 } Node;
 
@@ -46,7 +46,7 @@ int linkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val);
 int linkListGetLength(linkList *pList, int *pLen);
 
 /* 遍历链表 */
-int linkListForeach(linkList *pList);
+int linkListForeach(linkList *pList, void (*printFunc)(void *arg));
 
 /* 头删 */
 int linkListHeadDel(linkList *pList);

@@ -97,7 +97,7 @@ int linkListGetLength(linkList *pList, int *pLen)
 }
 
 /* 遍历链表 */
-int linkListForeach(linkList *pList)
+int linkListForeach(linkList *pList, void (*printFunc)(void *arg))
 {
     int ret = 0;
     if (!pList)
@@ -108,7 +108,8 @@ int linkListForeach(linkList *pList)
     Node *travelNode = pList->head->next;
     while(travelNode != NULL)
     {
-        printf("%d\t->", travelNode->val);
+        // printf("%d\t->", travelNode->val);
+        printFunc(travelNode->val);
         travelNode = travelNode->next;
     }
     printf("\n");
