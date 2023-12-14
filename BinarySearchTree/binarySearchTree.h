@@ -4,18 +4,19 @@
 
 #define ELEMENTTYPE int
 /* 树的结点 */
-typedef struct Node
+typedef struct BSTreeNode
 {
     ELEMENTTYPE val;
     struct Node * left;
     struct Node * right;
     struct Node * parent;
-}Node;
+} BSTreeNode;
 
 typedef struct BinarySearchTree
 {
     int size;       /* 结点的个数 */
-    Node * root;
+    int height;     /* 树的高度 */
+    BSTreeNode * root;
 } BinarySearchTree;
 
 /* 二叉搜索树初始化 */
@@ -48,4 +49,6 @@ int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree);
 /* 层序遍历 */
 int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree);
 
+/* 获取树的高度 */
+int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight);
 #endif  // __BINARY_SEARCH_TREE_H_
