@@ -1,6 +1,14 @@
 #ifndef __LINKLIST_H_
 #define __LINKLIST_H_
 
+
+#if 1
+#define ELEMENTTYPE void*
+#else
+typedef int ELEMENTTYPE;
+#endif
+
+
 /* 状态码 */
 enum STATUSCODE
 {
@@ -26,13 +34,13 @@ typedef struct linkList
 int linkListInit(linkList **pList);
 
 /* 头插 */
-int linkListHeadInsert(linkList *pList, int val);
+int linkListHeadInsert(linkList *pList, ELEMENTTYPE val);
 
 /* 尾插 */
-int linkListTailInsert(linkList *pList, int val);
+int linkListTailInsert(linkList *pList, ELEMENTTYPE val);
 
 /* 指定位置插入 */
-int linkListAppointPosInsert(linkList *pList, int pos, int val);
+int linkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val);
 
 /* 获取链表的数据 */
 int linkListGetLength(linkList *pList, int *pLen);
@@ -53,6 +61,6 @@ int linkListAppointPosDel(linkList *pList, int pos);
 int linkListDestroy(linkList *pList);
 
 /* 链表删除指定数据 */
-int linkListAppointValDel(linkList *pList, int val);
+int linkListAppointValDel(linkList *pList, ELEMENTTYPE val);
 
 #endif  //__LINKLIST_H_

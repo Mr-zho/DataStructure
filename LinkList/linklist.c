@@ -34,20 +34,20 @@ int linkListInit(linkList **pList)
 }
 
 /* 头插 */
-int linkListHeadInsert(linkList *pList, int val)
+int linkListHeadInsert(linkList *pList, ELEMENTTYPE val)
 {
     return linkListAppointPosInsert(pList, 0, val);
 }
 
-/* 尾巴 */
-int linkListTailInsert(linkList *pList, int val)
+/* 尾插 */
+int linkListTailInsert(linkList *pList, ELEMENTTYPE val)
 {
     int pos = pList->len;
     return linkListAppointPosInsert(pList, pos, val);
 }
 
 /* 指定位置插 */
-int linkListAppointPosInsert(linkList *pList, int pos, int val)
+int linkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val)
 {
     int ret = 0;
     if (!pList)
@@ -202,7 +202,7 @@ int linkListDestroy(linkList *pList)
 }
 
 /* 链表删除指定数据 */
-int linkListAppointValDel(linkList *pList, int val)
+int linkListAppointValDel(linkList *pList, ELEMENTTYPE val)
 {
     int ret = 0;
 
