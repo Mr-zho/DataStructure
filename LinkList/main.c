@@ -19,6 +19,13 @@ void printStruct(void *arg)
     return;
 }
 
+
+void printData(void *arg)
+{
+    int data = *(int *)arg;
+    printf("data:%d\n", data);
+}
+
 int main()
 {
     linkList *list = NULL;
@@ -26,28 +33,28 @@ int main()
 
 #if 0
     int ret = 0;
+    int array1[linkList_NUM] = {1, 2, 3};
     /* 头插 */
-    for (int idx = 1; idx < linkList_NUM; idx++)
+    for (int idx = 0; idx < linkList_NUM; idx++)
     {
-        ret = linkListHeadInsert(list, idx);
+        ret = linkListHeadInsert(list, (void *)&array1[idx]);
         if (ret != ON_SUCCESS)
         {
             printf("ret:%d\n", ret);
         }
     }
-    /* 按指定位置插入 */
-    ret = linkListAppointPosInsert(list, 2, 666);
 
     int length = 0;
-    for (int idx = 100; idx <= 100 + linkList_NUM; idx++)
+    int array2[linkList_NUM] = {100, 200, 300};
+    for (int idx = 0; idx < linkList_NUM; idx++)
     {
-        linkListTailInsert(list, idx);
+        linkListTailInsert(list, (void *)&array2[idx]);
         if (ret != ON_SUCCESS)
         {
             printf("ret:%d\n", ret);
         }
     }
-    linkListForeach(list, printStruct);
+    linkListForeach(list, printData);
 
     int linkLen = 0;
     linkListGetLength(list, &linkLen);
@@ -68,15 +75,13 @@ int main()
     printf("len:%d\n", linkLen);
 #endif
 
-#if 1
-
-
+#if 0
     StuInfo stu1;
     StuInfo stu2;
     StuInfo stu3;
-    // memset(&stu1, 0, sizeof(stu1));
-    // memset(&stu2, 0, sizeof(stu2));
-    // memset(&stu3, 0, sizeof(stu3));
+    memset(&stu1, 0, sizeof(stu1));
+    memset(&stu2, 0, sizeof(stu2));
+    memset(&stu3, 0, sizeof(stu3));
 
     /* 模块化初始化 */
 #if 1
@@ -84,17 +89,14 @@ int main()
         stu1.age = 10;
         stu1.sex = 'm';
     }
-#endif
 
-#if 1
+
     /* 模块化初始化 */
     {
         stu2.age = 20;
         stu2.sex = 'f';
     }
-#endif
 
-#if 1
     /* 模块化初始化 */
     {
         stu3.age = 30;
@@ -107,7 +109,7 @@ int main()
 
     int ret = 0;
     /* 头插 */
-    for (int idx = 1; idx < linkList_NUM; idx++)
+    for (int idx = 0; idx < linkList_NUM; idx++)
     {
         ret = linkListHeadInsert(list, (void *)&(buffer[idx]));
         if (ret != ON_SUCCESS)
@@ -119,9 +121,8 @@ int main()
     linkListGetLength(list, &len);
     printf("len:%d\n", len);
 
-    /* 遍历操作 */
+    /* 遍历操作 : 自实现打印函数 */
     linkListForeach(list, printStruct);
-
 #endif
     /* 链表销毁 */
     linkListDestroy(list);
