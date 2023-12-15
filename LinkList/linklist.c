@@ -108,8 +108,11 @@ int linkListForeach(linkList *pList, void (*printFunc)(void *arg))
     Node *travelNode = pList->head->next;
     while(travelNode != NULL)
     {
-        // printf("%d\t->", travelNode->val);
+        #if 0
+        printf("%d\t->", travelNode->val);
+        #else
         printFunc(travelNode->val);
+        #endif
         travelNode = travelNode->next;
     }
     printf("\n");
