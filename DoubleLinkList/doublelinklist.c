@@ -36,20 +36,20 @@ int doubleLinkListInit(linkList **pList)
 }
 
 /* 头插 */
-int doubleLinkListHeadInsert(linkList *pList, int val)
+int doubleLinkListHeadInsert(linkList *pList, ELEMENTTYPE val)
 {
     return doubleLinkListAppointPosInsert(pList, 0, val);
 }
 
 /* 尾巴 */
-int doubleLinkListTailInsert(linkList *pList, int val)
+int doubleLinkListTailInsert(linkList *pList, ELEMENTTYPE val)
 {
     int pos = pList->len;
     return doubleLinkListAppointPosInsert(pList, pos, val);
 }
 
 /* 指定位置插 */
-int doubleLinkListAppointPosInsert(linkList *pList, int pos, int val)
+int doubleLinkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val)
 {
     int ret = 0;
     if (!pList)
@@ -111,7 +111,7 @@ int doubleLinkListGetLength(linkList *pList, int *pLen)
 }
 
 /* 顺序遍历链表 */
-int doubleLinkListSeqForeach(linkList *pList)
+int doubleLinkListSeqForeach(linkList *pList, void (*printFunc)(void *arg))
 {
     int ret = 0;
     if (!pList)
@@ -122,7 +122,11 @@ int doubleLinkListSeqForeach(linkList *pList)
     Node *travel = pList->head->next;
     while(travel != NULL)
     {
+#if 0
         printf("%d\t->", travel->val);
+#else
+        printFunc(travel->val);
+#endif
         travel = travel->next;
     }
     printf("\n");
@@ -130,7 +134,7 @@ int doubleLinkListSeqForeach(linkList *pList)
 }
 
 /* 逆序遍历链表 */
-int doubleLinkListReverseForeach(linkList *pList)
+int doubleLinkListReverseForeach(linkList *pList, void (*printFunc)(void *arg))
 {
     int ret = 0;
     if (!pList)
@@ -147,7 +151,11 @@ int doubleLinkListReverseForeach(linkList *pList)
 
     while (travel != pList->head)
     {
+        #if 0
         printf("%d\t->", travel->val);
+        #else
+        printFunc(travel->val);
+        #endif
         travel = travel->prev;
     }
     printf("\n");
@@ -239,20 +247,20 @@ int doubleLinkListDestory(linkList *pList)
 
 
 /* 获取链表 头部数据 */
-int doubleLinkListGetHeadVal(linkList *pList, int *pVal)
+int doubleLinkListGetHeadVal(linkList *pList, ELEMENTTYPE *pVal)
 {
     return doubleLinkListGetAppointPosVal(pList, 1, pVal);
 }
 
 /* 获取链表 尾部数据 */
-int doubleLinkListGetTailVal(linkList *pList, int *pVal)
+int doubleLinkListGetTailVal(linkList *pList, ELEMENTTYPE *pVal)
 {
     int len = pList->len;
     return doubleLinkListGetAppointPosVal(pList, len, pVal);
 }
 
 /* 获取链表 指定位置数据 */
-int doubleLinkListGetAppointPosVal(linkList *pList, int pos, int *pVal)
+int doubleLinkListGetAppointPosVal(linkList *pList, int pos, ELEMENTTYPE *pVal)
 {
     int ret = 0;
     if (!pList)
