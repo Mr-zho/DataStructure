@@ -23,6 +23,8 @@ static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 static BSTreeNode * precursorNode(BSTreeNode *node);
 /* 获取当前结点的后继结点 */
 static BSTreeNode * successorNode(BSTreeNode *node);
+/* 根据传递的元素获取到指定搜索树结点 */
+BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val);
 
 
 /* 二叉搜索树初始化 */
@@ -165,12 +167,44 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     return ret;
 }
 
-/* 二叉搜索树删除元素 */
-int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val)
+static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {
     int ret = 0;
 
     return ret;
+}
+
+/* 根据传递的元素获取到指定搜索树结点 */
+/* very important: 回调函数的位置需要重新放置 */
+static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
+{
+    BSTreeNode *travelNode = pBSTree->root;
+    int cmp = 0;
+    while (travelNode != NULL)
+    {
+        cmp = compareFunc(val, travelNode->val);
+        if (cmp == 0)
+        {
+            return travelNode;
+        }
+        else if (cmp < 0)
+        {
+            travelNode = travelNode->left;
+        }
+        else
+        {
+            /* cmp > 0 */
+            travelNode = travelNode->right;
+        }
+    }
+    return NULL;
+}
+
+/* 二叉搜索树删除元素 */
+int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val)
+{
+    int ret = 0;
+    return binarySearchTreeRemoveAppointNode(accordElementGetAppointNode(pBSTree, val, NULL));
 }
 
 /* 二叉搜索树中是否包含指定元素 */
@@ -502,11 +536,7 @@ static BSTreeNode * successorNode(BSTreeNode *node)
     return node->parent;
 }
 
-/* 根据传递的元素获取到指定搜索树结点 */
-BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val)
-{
-    return NULL;
-}
+
 
 /* 判断树是否是完全二叉树 */
 /* 算法: 
