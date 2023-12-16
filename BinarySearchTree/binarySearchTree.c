@@ -18,6 +18,11 @@ static Node *createBstTreeNode(ELEMENTTYPE val);
 /* 结点比较函数, 配置不同的类型进行比较 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 
+/* 获取当前结点的前驱结点 */
+static BSTreeNode * precursorNode(BSTreeNode *node);
+/* 获取当前结点的后继结点 */
+static BSTreeNode * successorNode(BSTreeNode *node);
+
 
 /* 二叉搜索树初始化 */
 int binarySearchTreeInit(BinarySearchTree **pBSTree)
@@ -391,4 +396,22 @@ int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
     #else
     return (node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL) ? true : false;
     #endif
+}
+
+
+/* 获取当前结点的前驱结点 */
+static BSTreeNode * precursorNode(BSTreeNode *node)
+{
+    return NULL;
+}
+/* 获取当前结点的后继结点 */
+static BSTreeNode * successorNode(BSTreeNode *node)
+{
+    return NULL;
+}
+
+/* 根据传递的元素获取到指定搜索树结点 */
+BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val)
+{
+    return NULL;
 }
