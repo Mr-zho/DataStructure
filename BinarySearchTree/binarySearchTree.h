@@ -55,5 +55,6 @@ int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight);
 /* 二叉树的打印器 */
 int binarySearchTreeFormatPrintOut(BinarySearchTree *pBSTree);
 
-
+/* 判断树是否是完全二叉树 */
+int binarySearchTreeIsComplete(BinarySearchTree *pBSTree);
 #endif  // __BINARY_SEARCH_TREE_H_

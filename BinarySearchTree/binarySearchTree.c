@@ -415,3 +415,68 @@ BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val)
 {
     return NULL;
 }
+
+/* 判断树是否是完全二叉树 */
+/* 算法: 
+ *  1. 如果node.left != NULL && node.right != NULL. 将node.left和node.right入队
+ *  2. 如果node.left == NULL && node.right == NULL. 那么返回false.
+ *  3. 如果node.leaf != NULL && node.right == NULL. 或者 node.leaf == NULL && node.right == NULL
+ *      那么后面遍历到的所有节点都应该是叶子结点，才是完全二叉树， 否则返回false.  
+ * */
+int binarySearchTreeIsComplete(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+    
+    /* 如果是空树 */
+    #if 0
+    if (pBSTree->root == NULL)
+    {
+        return false;
+    }
+    #else
+    if (pBSTree->size == 0)
+    {
+        return false;
+    }
+    #endif
+
+    /* 使用队列的方式来判断二叉树是否是完全二叉树 */
+    doubleLinkListQueue *queue = NULL;
+    doublelinklistQueueInit(&queue);
+    /* 根结点入队 */
+    doublelinklistQueuePush(queue, pBSTree->root);
+
+    BSTreeNode * node = NULL;
+    int leaf = false;       /* 叶子结点的标记 */
+    while (!doublelinklistQueueIsEmpty(queue))
+    {
+        doublelinklistQueueTop(queue, (void *)&node);
+        doublelinklistQueuePop(queue);
+        if (leaf && !binarySearchTreeNodeIsLeaf(node))
+        {
+            return false;
+        }
+
+        if (node->left != NULL)
+        {
+            doublelinklistQueuePush(queue, node->left);
+        } else if (node->right != NULL)
+        {
+            /* node->left == NULL && node->right != NULL */
+            return false;
+        }
+
+        if (node->right != NULL)
+        {
+            doublelinklistQueuePush(queue, node->right);
+        }
+        else 
+        {
+            /* node->left == NULL && node->right == NULL */
+            /* node->left != NULL && node->right == NULL */
+            leaf = true;
+        }
+    }
+
+    return true;
+}
