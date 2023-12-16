@@ -11,8 +11,12 @@
 /* 静态函数前置声明 */
 /* 判断结点是否是度为2的结点 */
 static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node);
+/* 判断结点是否是度为1的结点 */
+static int binarySearchTreeNodeHasOneChildren(BSTreeNode *node);
 /* 判断结点是否是叶子结点 */
 static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
+
+
 /* 创建新的树结点 */
 static Node *createBstTreeNode(ELEMENTTYPE val);
 /* 结点比较函数, 配置不同的类型进行比较 */
@@ -376,7 +380,7 @@ static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node)
 }
 
 /* 判断结点是否是叶子结点 */
-int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
+static int binarySearchTreeNodeHasOneChildren(BSTreeNode *node)
 {
     if (!node)
     {
@@ -385,7 +389,7 @@ int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
 
     #if 0
     /* 左子树不为NULL && 右子树为NULL 或者 要么左子树为NULL && 右子树不为NULL */
-    if ((node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL))
+    if ((node->left == NULL && node->right != NULL) || (node->left == NULL && node->right != NULL))
     {
         return true;
     }
@@ -398,7 +402,25 @@ int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
     #endif
 }
 
-
+static int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+#if 0
+    if ((node->left == NULL) || (node->right == NULL))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+#else
+    return (node->left == NULL) && (node->right == NULL) ? true : false;
+#endif
+}
 /* 获取当前结点的前驱结点 */
 static BSTreeNode * precursorNode(BSTreeNode *node)
 {
@@ -419,7 +441,7 @@ BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val)
 /* 判断树是否是完全二叉树 */
 /* 算法: 
  *  1. 如果node.left != NULL && node.right != NULL. 将node.left和node.right入队
- *  2. 如果node.left == NULL && node.right == NULL. 那么返回false.
+ *  2. 如果node.left == NULL && node.right != NULL. 那么返回false.
  *  3. 如果node.leaf != NULL && node.right == NULL. 或者 node.leaf == NULL && node.right == NULL
  *      那么后面遍历到的所有节点都应该是叶子结点，才是完全二叉树， 否则返回false.  
  * */
