@@ -2,7 +2,7 @@
 #define __BINARY_SEARCH_TREE_H_
 #include <stdio.h>
 
-#define ELEMENTTYPE int
+#define ELEMENTTYPE void*
 /* 树的结点 */
 typedef struct BSTreeNode
 {
@@ -23,7 +23,7 @@ typedef struct BinarySearchTree
 int binarySearchTreeInit(BinarySearchTree **pBSTree);
 
 /* 二叉搜索树新增元素 */
-int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val);
+int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE));
 
 /* 二叉搜索树删除元素 */
 int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val);

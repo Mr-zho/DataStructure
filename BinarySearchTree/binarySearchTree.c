@@ -67,12 +67,14 @@ int binarySearchTreeInit(BinarySearchTree **pBSTree)
     return ret;
 }
 
+#if 1
 /* 结点比较函数, 配置不同的类型进行比较 */
 /* todo... 后面把它做成包装器 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2)
 {
     return val1 - val2;
 }
+#endif
 
 /* 创建新的结点 */
 static Node *createBstTreeNode(ELEMENTTYPE val)
@@ -93,7 +95,7 @@ static Node *createBstTreeNode(ELEMENTTYPE val)
     return newNode;
 }
 /* 二叉搜索树新增元素 */
-int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
+int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
 {
     int ret = 0;
     /* 空树 */
@@ -123,7 +125,11 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
     while (travelNode != NULL)
     {
         parentNode = travelNode;
+        #if 1
         cmp = nodeCompare(val, travelNode->val);
+        #else
+        cmp = compareFunc(val, travelNode->val);
+        #endif
         if (cmp < 0)
         {
             travelNode = travelNode->left;
