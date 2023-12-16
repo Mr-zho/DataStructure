@@ -118,12 +118,14 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     }
     #endif
 
+    /* 找到要插入位置的父结点 */
     BSTreeNode *parentNode = pBSTree->root;
     BSTreeNode *travelNode = pBSTree->root;
     
     int cmp = 0;
     while (travelNode != NULL)
     {
+        /* 更新父结点位置 */
         parentNode = travelNode;
         #if 1
         cmp = nodeCompare(val, travelNode->val);
@@ -159,7 +161,7 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     }
     else
     {
-        /* 新结点插入到左子树 */
+        /* 新结点插入到右子树 */
         parentNode->right = newNode;
     }
     pBSTree->size++;
