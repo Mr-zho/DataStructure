@@ -487,13 +487,13 @@ static BSTreeNode * precursorNode(BSTreeNode *node)
 
     if (node->left != NULL)
     {
-        BSTreeNode * p = node->left;
+        BSTreeNode * travelNode = node->left;
         /* 一直向右查找结点 知道找到左子树的“最右边”结点 */
         while (node->right != NULL)
         {
-            p = p->right;
+            travelNode = travelNode->right;
         }
-        return p;
+        return travelNode;
     }
     /* 跳出上面的if判断就说明:node.left == NULL. 从父结点和祖父结点寻找前驱结点 */
     while (node->parent != NULL && node == node->parent->left)
@@ -520,12 +520,12 @@ static BSTreeNode * successorNode(BSTreeNode *node)
 
     if (node->right != NULL)
     {
-        BSTreeNode *p = node->right;
-        while(p->left != NULL)
+        BSTreeNode *travelNode = node->right;
+        while(travelNode->left != NULL)
         {
-            p = p->left;
+            travelNode = travelNode->left;
         }
-        return p;
+        return travelNode;
     }
     /* 跳出上面的判断一定是node->right == NULL*/
     while (node->parent != NULL && node != node->parent->left)
