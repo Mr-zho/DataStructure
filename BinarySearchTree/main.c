@@ -66,11 +66,8 @@ int main()
 
     for (int idx = 0; idx < DEFAULT_SIZE; idx++)
     {   
-        binarySearchTreeInsert(BST, (void *)&buffer[idx], );
+        binarySearchTreeInsert(BST, (void *)&buffer[idx], compareSelfStruct);
     }
-    binarySearchTreeInsert(BST, 1);
-    binarySearchTreeInsert(BST, 7);
-
     binarySearchTreePreOrderTravel(BST);
 
     return 0;

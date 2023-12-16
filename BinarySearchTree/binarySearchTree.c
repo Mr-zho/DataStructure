@@ -18,7 +18,7 @@ static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
 
 
 /* 创建新的树结点 */
-static Node *createBstTreeNode(ELEMENTTYPE val);
+static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
 /* 结点比较函数, 配置不同的类型进行比较 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 
@@ -44,12 +44,12 @@ int binarySearchTreeInit(BinarySearchTree **pBSTree)
     }
     memset(pBst, 0, sizeof(BinarySearchTree));
     
-    pBst->root = (Node *)malloc(sizeof(Node) * 1);
+    pBst->root = (BSTreeNode *)malloc(sizeof(BSTreeNode) * 1);
     if (!(pBst->root))
     {
         return -1;
     }
-    memset(pBst->root, 0, sizeof(Node));
+    memset(pBst->root, 0, sizeof(BSTreeNode));
     /* 初始化树的结点为0 */
     {    
         pBst->size = 0;
@@ -77,14 +77,14 @@ static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2)
 #endif
 
 /* 创建新的结点 */
-static Node *createBstTreeNode(ELEMENTTYPE val)
+static BSTreeNode *createBstTreeNode(ELEMENTTYPE val)
 {
-    Node *newNode = (Node*)malloc(sizeof(Node) * 1);
+    BSTreeNode *newNode = (BSTreeNode*)malloc(sizeof(BSTreeNode) * 1);
     if (newNode == NULL)
     {
         return NULL;
     }
-    memset(newNode, 0, sizeof(Node) * 1);
+    memset(newNode, 0, sizeof(BSTreeNode) * 1);
     {
         /* 开辟的新结点赋值 */
         newNode->val = val;
@@ -118,8 +118,8 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     }
     #endif
 
-    Node *parentNode = pBSTree->root;
-    Node *travelNode = pBSTree->root;
+    BSTreeNode *parentNode = pBSTree->root;
+    BSTreeNode *travelNode = pBSTree->root;
     
     int cmp = 0;
     while (travelNode != NULL)
@@ -145,7 +145,7 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     }
 
     /* 新增树结点并赋值 */
-    Node * newNode = createBstTreeNode(val);
+    BSTreeNode * newNode = createBstTreeNode(val);
     if (newNode == NULL)
     {
         /* todo... */
@@ -202,7 +202,7 @@ int binarySearchTreeGetSize(BinarySearchTree *pBSTree)
     return pBSTree->size;
 }
 
-static void binarySearchTreePreOrder(Node *node)
+    static void binarySearchTreePreOrder(BSTreeNode *node)
 {   
     /* 递归结束的条件 */
     if (node == NULL)
@@ -228,7 +228,7 @@ int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree)
     return ret;
 }
 
-static void binarySearchTreeInOrder(Node *node)
+static void binarySearchTreeInOrder(BSTreeNode *node)
 {
     /* 递归结束的条件 */
     if (node == NULL)
@@ -253,7 +253,7 @@ int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree)
 }
 
 
-static void binarySearchTreePostOrder(Node *node)
+static void binarySearchTreePostOrder(BSTreeNode *node)
 {
     if (node == NULL)
     {

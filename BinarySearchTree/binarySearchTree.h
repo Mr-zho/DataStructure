@@ -7,9 +7,9 @@
 typedef struct BSTreeNode
 {
     ELEMENTTYPE val;
-    struct Node * left;
-    struct Node * right;
-    struct Node * parent;
+    struct BSTreeNode * left;
+    struct BSTreeNode * right;
+    struct BSTreeNode * parent;
 } BSTreeNode;
 
 typedef struct BinarySearchTree
