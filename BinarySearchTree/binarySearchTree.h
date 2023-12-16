@@ -51,4 +51,9 @@ int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree);
 
 /* 获取树的高度 */
 int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight);
+
+/* 二叉树的打印器 */
+int binarySearchTreeFormatPrintOut(BinarySearchTree *pBSTree);
+
+
 #endif  // __BINARY_SEARCH_TREE_H_

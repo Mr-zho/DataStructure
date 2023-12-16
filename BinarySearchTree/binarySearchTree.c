@@ -4,6 +4,21 @@
 #include <string.h>
 #include <doublelinklistQueue.h>
 
+#define true    1
+#define false   0
+
+
+/* 静态函数前置声明 */
+/* 判断结点是否是度为2的结点 */
+static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node);
+/* 判断结点是否是叶子结点 */
+static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
+/* 创建新的树结点 */
+static Node *createBstTreeNode(ELEMENTTYPE val);
+/* 结点比较函数, 配置不同的类型进行比较 */
+static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
+
+
 /* 二叉搜索树初始化 */
 int binarySearchTreeInit(BinarySearchTree **pBSTree)
 {
@@ -324,4 +339,56 @@ int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight)
 
     *pHeight = height;
     return ret;
+}
+
+/* 二叉树的打印器 */
+int binarySearchTreeFormatPrintOut(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+/* 判断结点是否是度为2的结点 */
+static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node)
+{
+    if (!node)
+    {
+        return false;
+    }
+#if 0
+    if (node->left != NULL && node->right != NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+#else
+    return node->left && node->right ? true : false;
+#endif
+}
+
+/* 判断结点是否是叶子结点 */
+int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
+{
+    if (!node)
+    {
+        return false;
+    }
+
+    #if 0
+    /* 左子树不为NULL && 右子树为NULL 或者 要么左子树为NULL && 右子树不为NULL */
+    if ((node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    #else
+    return (node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL) ? true : false;
+    #endif
 }
