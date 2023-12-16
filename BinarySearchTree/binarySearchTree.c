@@ -97,6 +97,7 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
     int ret = 0;
     /* 空树 */
+    #if 1
     if (pBSTree->size == 0)
     {
         pBSTree->root->val = val;
@@ -104,6 +105,16 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
         ++(pBSTree->size);
         return ret;
     }
+    #else
+    /* 如果初始化的时候不分配结点 判断空树就使用这种方式来做 */
+    if (pBSTree->root == NULL)
+    {
+        /* 将新结点置为根结点 */
+        pBSTree->root = createBstTreeNode(val);
+        (pBSTree->size)++; 
+        return ret;
+    }
+    #endif
 
     Node *parentNode = pBSTree->root;
     Node *travelNode = pBSTree->root;
