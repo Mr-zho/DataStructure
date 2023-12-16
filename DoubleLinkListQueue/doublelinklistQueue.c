@@ -1,4 +1,5 @@
 #include "doublelinklistQueue.h"
+#include "doublelinklist.h"
 
 /* 双向链表队列 初始化 */
 int doublelinklistQueueInit(doubleLinkListQueue ** pQueue)

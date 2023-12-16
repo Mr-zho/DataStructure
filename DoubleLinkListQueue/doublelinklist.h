@@ -1,6 +1,8 @@
 #ifndef __LINKLIST_H_
 #define __LINKLIST_H_
 
+#include "common.h"
+
 /* 状态码 */
 enum STATUSCODE
 {
@@ -10,22 +12,7 @@ enum STATUSCODE
     INVAILD_ACCESS,
 };
 
-/* 万能指针 */
-#define ELEMENTTYPE void*
 
-typedef struct node
-{
-    ELEMENTTYPE val;                /* 数据 */
-    struct node * prev;     /* 前置指针 */
-    struct node * next;     /* 后置指针 */
-} Node;
-
-typedef struct linkList
-{
-    Node *head;
-    Node *tail;
-    int len;
-} linkList;
 
 /* 链表的初始化 */
 int doubleLinkListInit(linkList **pList);

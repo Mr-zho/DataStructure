@@ -110,7 +110,7 @@ int doubleLinkListGetLength(linkList *pList, int *pLen)
     return pList->len;
 }
 
-#if 0
+#if 1
 /* 顺序遍历链表 */
 int doubleLinkListSeqForeach(linkList *pList)
 {
@@ -123,7 +123,11 @@ int doubleLinkListSeqForeach(linkList *pList)
     Node *travel = pList->head->next;
     while(travel != NULL)
     {
+        #if 0
         printf("%d\t->", travel->val);
+        #else
+
+        #endif
         travel = travel->next;
     }
     printf("\n");

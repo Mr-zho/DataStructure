@@ -1,6 +1,6 @@
 #ifndef __DOUBLELINKLISTQUEUE_H_
 #define __DOUBLELINKLISTQUEUE_H_
-#include "doublelinklist.h"
+#include "common.h"
 
 
 typedef struct linkList doubleLinkListQueue;
