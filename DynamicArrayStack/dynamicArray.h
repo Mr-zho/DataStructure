@@ -1,18 +1,7 @@
 #ifndef __DYNAMICARRAY_H_
 #define __DYNAMICARRAY_H_
 
-#if 1
-#define ELEMENTTYPE int
-#else
-typedef int ELEMENTTYPE;
-#endif
-typedef struct DynamicArray
-{
-    ELEMENTTYPE *data;
-    int len;
-    int capacity;   /* 容量 */
-} DynamicArray;
-
+#include "common.h"
 
 /* 动态数组初始化 */
 int dynamicArrayInit(DynamicArray *pArray);
@@ -30,7 +19,7 @@ int dynamicArrayDelAppointPos(DynamicArray *pArray, int pos);
 int dynamicArrayDestory(DynamicArray *pArray);
 
 /* 动态数组获取指定位置的数据 */
-int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, int *pVal);
+int dynamicArrayGetAppointPosVal(DynamicArray *pArray, int pos, ELEMENTTYPE *pVal);
 
 /* 获取动态数组的容量 */
 int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap);
@@ -39,6 +28,6 @@ int dynamicArrayGetCapacity(DynamicArray *pArray, int *pCap);
 int dynamicArrayGetSize(DynamicArray *pArray, int * pSize);
 
 /* 修改动态数组指定位置的值 */
-int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, int *pVal);
+int dynamicArrayModifyAppointPosVal(DynamicArray *pArray, int pos, ELEMENTTYPE pVal);
 
 #endif // __DYNAMICARRAY_H_

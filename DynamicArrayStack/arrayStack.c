@@ -8,7 +8,7 @@ int arrayStackInit(ArrayStack * pStack)
 }
 
 /* 栈的插入数据 */
-int arrayStackPush(ArrayStack * pStack, int val)
+int arrayStackPush(ArrayStack * pStack, ELEMENTTYPE val)
 {
     return dynamicArrayInsert(pStack, val);
 }
@@ -26,7 +26,7 @@ int arrayStackPop(ArrayStack * pStack)
 }
 
 /* 查看栈顶数据 */
-int arrayStackTop(ArrayStack * pStack, int *pVal)
+int arrayStackTop(ArrayStack * pStack, ELEMENTTYPE *pVal)
 {
     int ret = 0;
     int stackSize = 0;
