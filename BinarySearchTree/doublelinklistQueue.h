@@ -26,4 +26,7 @@ int doublelinklistQueueSize(doubleLinkListQueue * pQueue, int *pSize);
 /* 双向链表队列 销毁 */
 int doublelinklistQueueDestory(doubleLinkListQueue * pQueue);
 
+/* 双向链表队列 是否为空 */
+int doublelinklistQueueIsEmpty(doubleLinkListQueue * pQueue);
+
 #endif  // __DOUBLELINKLISTQUEUE_H_

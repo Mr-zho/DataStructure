@@ -47,3 +47,10 @@ int doublelinklistQueueDestory(doubleLinkListQueue * pQueue)
     return ret;
 }
 
+/* 判断队列是否为空 */
+int doublelinklistQueueIsEmpty(doubleLinkListQueue * pQueue)
+{
+    int size = 0;
+    doubleLinkListGetLength(pQueue, &size);
+    return size == 0 ? 1 : 0;
+}
