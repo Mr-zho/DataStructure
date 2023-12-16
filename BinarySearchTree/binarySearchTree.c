@@ -15,13 +15,10 @@ static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node);
 static int binarySearchTreeNodeHasOneChildren(BSTreeNode *node);
 /* 判断结点是否是叶子结点 */
 static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
-
-
 /* 创建新的树结点 */
 static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
-/* 结点比较函数, 配置不同的类型进行比较 */
+/* todo... 结点比较函数, 配置不同的类型进行比较 后续函数指针替代 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
-
 /* 获取当前结点的前驱结点 */
 static BSTreeNode * precursorNode(BSTreeNode *node);
 /* 获取当前结点的后继结点 */
@@ -441,14 +438,68 @@ static int binarySearchTreeNodeIsLeaf(BSTreeNode *node)
 #endif
 }
 /* 获取当前结点的前驱结点 */
+/* 
+ * 中序遍历时的前一个结点 : 对于二叉搜索树而言,前驱结点就是前一个比它小的结点 
+ * 1. node.left != NULL => precursorNode = node.left.right.right.right.right...,终止条件:right 为 NULL
+ * 2. node.left == NULL && node.parent != NULL => precursorNode = node.parent.parent.parent...,终止条件:node在parent的右子树
+ * 3. node.left == NULL && node.parent == NULL => 没有前驱结点
+ */
 static BSTreeNode * precursorNode(BSTreeNode *node)
 {
-    return NULL;
+    if (node == NULL)
+    {
+        return NULL;
+    }
+
+    if (node->left != NULL)
+    {
+        BSTreeNode * p = node->left;
+        /* 一直向右查找结点 知道找到左子树的“最右边”结点 */
+        while (node->right != NULL)
+        {
+            p = p->right;
+        }
+        return p;
+    }
+    /* 跳出上面的if判断就说明:node.left == NULL. 从父结点和祖父结点寻找前驱结点 */
+    while (node->parent != NULL && node == node->parent->left)
+    {
+        node = node->parent;
+    }
+    /* 跳出循环的条件是:node->parent == NULL || node == node.parent.right */
+    return node->parent;
 }
+
 /* 获取当前结点的后继结点 */
+/* 
+ * 中序遍历时的后一个结点 : 对于二叉搜索树而言,后继结点就是前一个比它大的结点 
+ * 1. node.right != NULL => successorNode = node.right.left.left.left.left.left...
+ * 2. node.right == NULL && node.parent != NULL => successorNode.parent.parent.parent...,终止条件:node在parent的左子树
+ * 3. node.right == NULL && node.parent == NULL => 没有后续结点
+ */
 static BSTreeNode * successorNode(BSTreeNode *node)
 {
-    return NULL;
+    if (node == NULL)
+    {
+        return NULL;
+    }
+
+    if (node->right != NULL)
+    {
+        BSTreeNode *p = node->right;
+        while(p->left != NULL)
+        {
+            p = p->left;
+        }
+        return p;
+    }
+    /* 跳出上面的判断一定是node->right == NULL*/
+    while (node->parent != NULL && node != node->parent->left)
+    {
+        node = node->parent;
+    }
+    /* 跳出循环的条件是:node->parent == NULL || node == node->parent->right.*/
+    return node->parent;
 }
 
 /* 根据传递的元素获取到指定搜索树结点 */
