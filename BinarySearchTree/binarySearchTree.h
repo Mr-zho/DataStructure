@@ -62,6 +62,9 @@ int binarySearchTreeFormatPrintOut(BinarySearchTree *pBSTree);
 /* 判断树是否是完全二叉树 */
 int binarySearchTreeIsComplete(BinarySearchTree *pBSTree);
 
+/* 二叉搜索树的销毁 */
+int binarySearchTreeDestroy(BinarySearchTree *pBSTree);
+
 /* 二叉树的保存 */
 int binarySearchTreeSave2File(BinarySearchTree *pBSTree, const char *pathname);
 #endif  // __BINARY_SEARCH_TREE_H_

@@ -17,6 +17,8 @@ static int binarySearchTreeNodeHasOneChildren(BSTreeNode *node);
 static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
 /* 创建新的树结点 */
 static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
+/* 释放树的结点 */
+
 /* todo... 结点比较函数, 配置不同的类型进行比较 后续函数指针替代 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 /* 获取当前结点的前驱结点 */
@@ -172,7 +174,6 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 static int binarySearchTreeRemovePrecursorNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {   
     int ret = 0;
-
     return ret;
 }
 
@@ -180,7 +181,6 @@ static int binarySearchTreeRemovePrecursorNode(BinarySearchTree *pBSTree, BSTree
 static int binarySearchTreeRemoveSuccessorNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {   
     int ret = 0;
-
     return ret;
 }
 
@@ -188,13 +188,81 @@ static int binarySearchTreeRemoveSuccessorNode(BinarySearchTree *pBSTree, BSTree
 static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {
     int ret = 0;
+
+    /* 树的结点减一 */
+    pBSTree->size--;
+
     #if 0
-    /* 前驱结点替换当前结点 */
-    binarySearchTreeRemovePrecursorNode(pBSTree, node);
+    /* 度为2 */
+    if (binarySearchTreeNodeHasTwoChildrens(node))
+    {
+        /* 前驱结点替换当前结点 */
+        BSTreeNode * preNode  = precursorNode(node);
+        node->val = preNode->val;
+        node = preNode;
+    }
     #else
+    /* 度为2 */
     /* 后继结点替换当前结点 */
-    binarySearchTreeRemoveSuccessorNode(pBSTree, node);
+    if (binarySearchTreeNodeHasTwoChildrens(node))
+    {
+        /* 后继结点替换当前结点 */
+        BSTreeNode * nextNode = successorNode(node);
+        node->val == nextNode->val;
+        node = nextNode;
+    }
     #endif
+    /* 删除node结点 (node的度一定是0和1) 「前驱结点 和 后继结点一定是度为1 和 度为0的结点」*/
+    /* 如果node结点的度为1: 要么是左子树 要么是右子树 */
+    /* 如果node结点的度为0: replacement为NULL. */
+    /* 主要向拿到要删除结点的子结点 */
+    BSTreeNode * replaceNode = node->left != NULL ? node->left : node->right;
+
+    if (replaceNode != NULL)
+    {
+        /* 度为1的结点 */
+        if (node->parent == NULL)
+        {
+            /* node的度为1, 并且是根结点 */
+            pBSTree->root = replaceNode;
+            /* todo... 释放结点 */
+        }
+        else
+        {
+            if (node == node->parent->left)
+            {
+                node->parent->left = replaceNode;
+            }
+            else if (node == node->parent->right)
+            {
+                node->parent->right = replaceNode;
+            }
+            /* todo... 释放结点 */
+        }
+        /* 更改parent结点 */
+        replaceNode->parent = node->parent;
+    }
+    else
+    {
+        /* 度为0的结点 */
+        if (node->parent == NULL)
+        {
+            /* node是根结点 */
+            /* todo... 直接释放结点 */
+        }
+        else
+        {
+            /* node是叶子结点, 但不是根结点 */
+            if (node == node->parent->left)
+            {
+                /* todo... 直接释放结点 */
+            }
+            else if (node == node->parent->right)
+            {
+                /* todo... 直接释放结点 */
+            }
+        }
+    }
     return ret;
 }
 
@@ -633,5 +701,35 @@ int binarySearchTreeSave2File(BinarySearchTree *pBSTree, const char *pathname)
 {
     int ret = 0;
 
+    return ret;
+}
+
+/* 中间遍历获取到所有的结点 & 释放结点的内存 */
+static int binarySearchTreeInOrderDestroy(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+/* 层序方式获取到所有的结点 & 释放结点的内存  */
+static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+
+    return ret;
+}
+
+/* 二叉搜索树的销毁 */
+int binarySearchTreeDestroy(BinarySearchTree *pBSTree)
+{
+    int ret = 0;
+    #if 1
+    /* 使用中序遍历的方式销毁*/
+    binarySearchTreeInOrderDestroy(pBSTree);
+    #else
+    /* 使用层序遍历的方式销毁 */
+    binarySearchTreeLevelOrderDestroy(pBSTree);
+    #endif
     return ret;
 }
