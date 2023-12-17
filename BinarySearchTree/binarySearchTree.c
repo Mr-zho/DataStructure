@@ -228,17 +228,21 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
     /* 主要向拿到要删除结点的子结点 */
     BSTreeNode * replaceNode = node->left != NULL ? node->left : node->right;
 
+    BSTreeNode *tmpNode = NULL;
     if (replaceNode != NULL)
     {
         /* 度为1的结点 */
         if (node->parent == NULL)
         {
             /* node的度为1, 并且是根结点 */
+            /* 做结点数据备份 */
+            tmpNode = pBSTree->root;
             pBSTree->root = replaceNode;
-            /* todo... 释放结点 */
         }
         else
         {
+            /* 做结点数据备份 */
+            tmpNode = node;
             if (node == node->parent->left)
             {
                 node->parent->left = replaceNode;
@@ -247,10 +251,10 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
             {
                 node->parent->right = replaceNode;
             }
-            /* todo... 释放结点 */
         }
         /* 更改parent结点 */
         replaceNode->parent = node->parent;
+        
     }
     else
     {
@@ -259,19 +263,30 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
         {
             /* node是根结点 */
             /* todo... 直接释放结点 */
+            tmpNode = node;
         }
         else
         {
             /* node是叶子结点, 但不是根结点 */
             if (node == node->parent->left)
             {
-                /* todo... 直接释放结点 */
+                /* 直接释放结点 */
+                node->parent->left = NULL;
             }
             else if (node == node->parent->right)
             {
-                /* todo... 直接释放结点 */
+                /* 直接释放结点 */
+                node->parent->right = NULL;
             }
+            /* 数据备份 */
+            tmpNode = node;
         }
+    }
+    /* 释放结点 : 指针全部变动完之后再操作. */
+    if (tmpNode != NULL)
+    {
+        free(tmpNode);
+        tmpNode = NULL;
     }
     return ret;
 }
