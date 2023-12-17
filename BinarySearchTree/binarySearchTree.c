@@ -166,6 +166,7 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
         /* 新结点插入到右子树 */
         parentNode->right = newNode;
     }
+    newNode->parent = parentNode;
     pBSTree->size++;
     return ret;
 }
@@ -198,7 +199,11 @@ static int binarySearchTreeRemoveSuccessorNode(BinarySearchTree *pBSTree, BSTree
 static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {
     int ret = 0;
-
+    if (node == NULL)
+    {
+        return 0;
+    }
+    
     /* 树的结点减一 */
     pBSTree->size--;
 
@@ -218,7 +223,7 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
     {
         /* 后继结点替换当前结点 */
         BSTreeNode * nextNode = successorNode(node);
-        node->val == nextNode->val;
+        node->val = nextNode->val;
         node = nextNode;
     }
     #endif

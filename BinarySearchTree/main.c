@@ -50,8 +50,8 @@ int main()
     /* 初始化树 */
     binarySearchTreeInit(&BST, compareBasicType);
 
-    int array1[] = {10, 3, 17};
-    for (int idx = 0; idx < DEFAULT_SIZE; idx++)
+    int array1[] = {666, 555, 888, 444, 600, 777, 999, 333, 1111};
+    for (int idx = 0; idx < sizeof(array1) / sizeof(array1[0]); idx++)
     {
         binarySearchTreeInsert(BST, (void *)&array1[idx]);
     }
@@ -72,6 +72,36 @@ int main()
     printf("Level order:\n");
     binarySearchTreeLevelOrderTravel(BST, printBasicData);
     printf("\n");
+
+    int goodElement = 789;
+    binarySearchTreeRemove(BST, &goodElement);
+
+    int ret = binarySearchTreeIsContainVal(BST, &goodElement);
+    printf("ret:%d\n", ret);
+
+
+    size = 0;
+    binarySearchTreeGetSize(BST, &size);
+    printf("size:%d\n", size);
+
+#if 0
+    /* 中序遍历 */
+    printf("In order:\n");
+    binarySearchTreeInOrderTravel(BST, printBasicData);
+    printf("\n");
+#endif
+
+    /* 层序遍历 */
+    printf("Level order:\n");
+    binarySearchTreeLevelOrderTravel(BST, printBasicData);
+    printf("\n");
+
+
+#if 0
+    int badElement = 56;
+    ret = binarySearchTreeIsContainVal(BST, &badElement);
+    printf("ret:%d\n", ret);
+#endif
 
     /* 销毁二叉搜索树 -> 检测内存泄漏 */
     binarySearchTreeDestroy(BST);
