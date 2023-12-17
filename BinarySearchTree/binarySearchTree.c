@@ -494,12 +494,12 @@ static BSTreeNode * precursorNode(BSTreeNode *node)
             travelNode = travelNode->right;
         }
         return travelNode;
-    }
+    }   // node->left == NULL.
     /* 跳出上面的if判断就说明:node.left == NULL. 从父结点和祖父结点寻找前驱结点 */
     while (node->parent != NULL && node == node->parent->left)
     {
         node = node->parent;
-    }
+    }   // 如果在父结点或者祖父结点的右侧就跳出循环
     /* 跳出循环的条件是:node->parent == NULL || node == node.parent.right */
     return node->parent;
 }
@@ -526,12 +526,12 @@ static BSTreeNode * successorNode(BSTreeNode *node)
             travelNode = travelNode->left;
         }
         return travelNode;
-    }
-    /* 跳出上面的判断一定是node->right == NULL*/
-    while (node->parent != NULL && node != node->parent->left)
+    }   // node->right == NULL
+    /* 跳出上面的判断一定是node->right == NULL */
+    while (node->parent != NULL && node == node->parent->right)
     {
         node = node->parent;
-    }
+    } // 如果在父结点或者祖父结点的左侧就跳出循环
     /* 跳出循环的条件是:node->parent == NULL || node == node->parent->right.*/
     return node->parent;
 }
