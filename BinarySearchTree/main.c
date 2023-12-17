@@ -27,6 +27,13 @@ int compareSelfStruct(ELEMENTTYPE arg1, ELEMENTTYPE arg2)
     #endif 
 }   
 
+
+int printBasicData(void *arg)
+{
+    int data = *(int *)arg;
+    printf("data:%d\t", data);
+}
+
 int compareBasicType(ELEMENTTYPE arg1, ELEMENTTYPE arg2)
 {
     int va11 = *(int *)arg1;
@@ -51,6 +58,23 @@ int main()
     int size = 0;
     binarySearchTreeGetSize(BST, &size);
     printf("size:%d\n", size);
+
+    /* 中序遍历 */
+    printf("In order:\n");
+    binarySearchTreeInOrderTravel(BST, printBasicData);
+    printf("\n");
+    /* 获取树的高度 */
+    int height = 0;
+    binarySearchTreeGetHeight(BST, &height);
+    printf("height:%d\n", height);
+
+    /* 层序遍历 */
+    printf("Level order:\n");
+    binarySearchTreeLevelOrderTravel(BST, printBasicData);
+    printf("\n");
+
+    /* 销毁二叉搜索树 -> 检测内存泄漏 */
+    binarySearchTreeDestroy(BST);
 #else
     /* 初始化树 */
     binarySearchTreeInit(&BST, compareSelfStruct);

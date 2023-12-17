@@ -776,19 +776,16 @@ static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
     /* 队列的大小 */
     int queueSize = 0;
     BSTreeNode * BstVal = NULL;
+    /* 该遍历做数据备份 */
+    BSTreeNode * tmpNode = NULL;
     /* 当队列不为空的时候 */
     while (doublelinklistQueueSize(queue, &queueSize))
     {
         doublelinklistQueueTop(queue, (void *)&BstVal);
         doublelinklistQueuePop(queue);
 
-        /* 释放树的结点 */
-        if (BstVal)
-        {
-            free(BstVal);
-            BstVal = NULL;
-        }
-
+        /* 结点数据备份 */
+        tmpNode = BstVal;
         /* 当左子树存在的时候，将左子树添加到队列中 */
         if (BstVal->left != NULL)
         {
@@ -799,6 +796,13 @@ static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
         if (BstVal->right != NULL)
         {
             doublelinklistQueuePush(queue, BstVal->right);
+        }
+
+        /* 释放树的结点 */
+        if (tmpNode)
+        {
+            free(tmpNode);
+            tmpNode = NULL;
         }
     }
     /* 释放队列 */
@@ -817,7 +821,7 @@ static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
 int binarySearchTreeDestroy(BinarySearchTree *pBSTree)
 {
     int ret = 0;
-    #if 1
+    #if 0
     /* 使用中序遍历的方式销毁*/
     binarySearchTreeInOrderDestroy(pBSTree);
     #else
