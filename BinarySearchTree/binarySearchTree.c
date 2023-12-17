@@ -185,6 +185,16 @@ static int binarySearchTreeRemoveSuccessorNode(BinarySearchTree *pBSTree, BSTree
 }
 
 /* 删除指定结点 */
+/* 
+ * 删除度为0的结点: 要么是叶子结点,要么是只有唯一一个结点的树。这种情况下直接释放free结点即可
+ * 删除度为1的结点: 
+ *      当要删除的结点有父结点的时候,修改要删除结点的父结点和子结点的指向关系,再释放free结点.
+ *      当要删除的结点没有父结点的时候, 直接改变根结点的指向即可。
+ * 删除度为2的结点:
+ *      找到前驱结点和后继结点,前驱结点或者后继结点的值替换掉当前要删除结点的值
+ *      再删除前驱结点或者后继结点。(度为2结点的前驱结点或者后继结点的度一定是1或者0)
+ *      再按照上面删除度为0还是度为1的逻辑操作即可.
+ * */
 static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {
     int ret = 0;
@@ -212,7 +222,7 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
         node = nextNode;
     }
     #endif
-    /* 删除node结点 (node的度一定是0和1) 「前驱结点 和 后继结点一定是度为1 和 度为0的结点」*/
+    /* 删除node结点 (node的度一定是0和1) 「度为2结点的前驱结点 和 后继结点一定是 度为1 和 度为0 的结点」*/
     /* 如果node结点的度为1: 要么是左子树 要么是右子树 */
     /* 如果node结点的度为0: replacement为NULL. */
     /* 主要向拿到要删除结点的子结点 */
