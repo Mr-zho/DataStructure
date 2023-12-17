@@ -437,6 +437,7 @@ int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree)
             doublelinklistQueuePush(queue, BstVal->right);
         }
     }
+    doublelinklistQueueDestory(queue);
     return ret;
 }
 
@@ -488,7 +489,8 @@ int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight)
             height++; 
         }
     }
-
+    /* 释放队列 */
+    doublelinklistQueueDestory(queue);
     *pHeight = height;
     return ret;
 }
@@ -692,7 +694,8 @@ int binarySearchTreeIsComplete(BinarySearchTree *pBSTree)
             leaf = true;
         }
     }
-
+    /* 释放队列 */
+    doublelinklistQueueDestory(queue);
     return true;
 }
 
@@ -716,7 +719,56 @@ static int binarySearchTreeInOrderDestroy(BinarySearchTree *pBSTree)
 static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
 {
     int ret = 0;
+    int ret = 0;
+    /* 算法: 使用队列 
+        1. 将根结点入队
+        2. 循环执行以下操作, 直到队列为空
+            2.1 将队头结点(A)出队,并访问
+            2.2 将(A)的左子节点入队
+            2.3 将(A)的右子节点入队
+    */
+    doubleLinkListQueue * queue = NULL;
+    doublelinklistQueueInit(&queue);
+    
+    /* 将根结点入队 */
+    doublelinklistQueuePush(queue, pBSTree->root);
+    /* 队列的大小 */
+    int queueSize = 0;
+    BSTreeNode * BstVal = NULL;
+    /* 当队列不为空的时候 */
+    while (doublelinklistQueueSize(queue, &queueSize))
+    {
+        doublelinklistQueueTop(queue, (void *)&BstVal);
+        doublelinklistQueuePop(queue);
 
+        /* 释放树的结点 */
+        if (BstVal)
+        {
+            free(BstVal);
+            BstVal = NULL;
+        }
+
+        /* 当左子树存在的时候，将左子树添加到队列中 */
+        if (BstVal->left != NULL)
+        {
+            doublelinklistQueuePush(queue, BstVal->left);
+        }
+        
+        /* 当右子树存在的时候，将右子树添加到队列中 */
+        if (BstVal->right != NULL)
+        {
+            doublelinklistQueuePush(queue, BstVal->right);
+        }
+    }
+    /* 释放队列 */
+    doublelinklistQueueDestory(queue);
+
+    /* 释放树 */
+    if (pBSTree)
+    {
+        free(pBSTree);
+        pBSTree = NULL;
+    }
     return ret;
 }
 
