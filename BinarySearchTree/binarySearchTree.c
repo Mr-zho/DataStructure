@@ -24,11 +24,11 @@ static BSTreeNode * precursorNode(BSTreeNode *node);
 /* 获取当前结点的后继结点 */
 static BSTreeNode * successorNode(BSTreeNode *node);
 /* 根据传递的元素获取到指定搜索树结点 */
-BSTreeNode * accordElementGetAppointNode(ELEMENTTYPE val);
+static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 
 /* 二叉搜索树初始化 */
-int binarySearchTreeInit(BinarySearchTree **pBSTree)
+int binarySearchTreeInit(BinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
 {
     int ret = 0;
     if (pBSTree == NULL)
@@ -49,9 +49,10 @@ int binarySearchTreeInit(BinarySearchTree **pBSTree)
         return -1;
     }
     memset(pBst->root, 0, sizeof(BSTreeNode));
-    /* 初始化树的结点为0 */
+    /* 初始化树 */
     {    
         pBst->size = 0;
+        pBst->compareFunc = compareFunc;
     }
 
     /* 初始化树的根结点 */
@@ -94,7 +95,7 @@ static BSTreeNode *createBstTreeNode(ELEMENTTYPE val)
     return newNode;
 }
 /* 二叉搜索树新增元素 */
-int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
+int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
     int ret = 0;
     /* 空树 */
@@ -126,10 +127,10 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*com
     {
         /* 更新父结点位置 */
         parentNode = travelNode;
-        #if 1
+        #if 0
         cmp = nodeCompare(val, travelNode->val);
         #else
-        cmp = compareFunc(val, travelNode->val);
+        cmp = pBSTree->compareFunc(val, travelNode->val);
         #endif
         if (cmp < 0)
         {
@@ -176,13 +177,13 @@ static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNo
 
 /* 根据传递的元素获取到指定搜索树结点 */
 /* very important: 回调函数的位置需要重新放置 */
-static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEMENTTYPE val, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
+static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
     BSTreeNode *travelNode = pBSTree->root;
     int cmp = 0;
     while (travelNode != NULL)
     {
-        cmp = compareFunc(val, travelNode->val);
+        cmp = pBSTree->compareFunc(val, travelNode->val);
         if (cmp == 0)
         {
             return travelNode;
@@ -204,7 +205,7 @@ static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEME
 int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
     int ret = 0;
-    return binarySearchTreeRemoveAppointNode(accordElementGetAppointNode(pBSTree, val, NULL));
+    return binarySearchTreeRemoveAppointNode(pBSTree, accordElementGetAppointNode(pBSTree, val, NULL));
 }
 
 /* 二叉搜索树中是否包含指定元素 */

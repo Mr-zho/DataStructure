@@ -30,7 +30,7 @@ int main()
 {
     BinarySearchTree *BST = NULL;
     /* 初始化树 */
-    binarySearchTreeInit(&BST);
+    binarySearchTreeInit(&BST, compareSelfStruct);
 
 #if 1
     StuInfo stu1;
@@ -66,7 +66,7 @@ int main()
 
     for (int idx = 0; idx < DEFAULT_SIZE; idx++)
     {   
-        binarySearchTreeInsert(BST, (void *)&buffer[idx], compareSelfStruct);
+        binarySearchTreeInsert(BST, (void *)&buffer[idx]);
     }
     binarySearchTreePreOrderTravel(BST);
 
