@@ -13,7 +13,7 @@
 static int binarySearchTreeNodeHasTwoChildrens(BSTreeNode *node);
 /* 判断结点是否是度为1的结点 */
 static int binarySearchTreeNodeHasOneChildren(BSTreeNode *node);
-/* 判断结点是否是叶子结点 */
+/* 判断结点是否是度为0的结点 (叶子结点) */
 static int binarySearchTreeNodeIsLeaf(BSTreeNode *node);
 /* 创建新的树结点 */
 static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
@@ -67,7 +67,7 @@ int binarySearchTreeInit(BinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTT
     return ret;
 }
 
-#if 1
+#if 0
 /* 结点比较函数, 配置不同的类型进行比较 */
 /* todo... 后面把它做成包装器 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2)
@@ -168,10 +168,33 @@ int binarySearchTreeInsert(BinarySearchTree *pBSTree, ELEMENTTYPE val)
     return ret;
 }
 
+/* 前驱结点替换当前结点 */
+static int binarySearchTreeRemovePrecursorNode(BinarySearchTree *pBSTree, BSTreeNode *node)
+{   
+    int ret = 0;
+
+    return ret;
+}
+
+/* 后继结点替换当前结点 */
+static int binarySearchTreeRemoveSuccessorNode(BinarySearchTree *pBSTree, BSTreeNode *node)
+{   
+    int ret = 0;
+
+    return ret;
+}
+
+/* 删除指定结点 */
 static int binarySearchTreeRemoveAppointNode(BinarySearchTree *pBSTree, BSTreeNode *node)
 {
     int ret = 0;
-
+    #if 0
+    /* 前驱结点替换当前结点 */
+    binarySearchTreeRemovePrecursorNode(pBSTree, node);
+    #else
+    /* 后继结点替换当前结点 */
+    binarySearchTreeRemoveSuccessorNode(pBSTree, node);
+    #endif
     return ret;
 }
 
@@ -204,16 +227,17 @@ static BSTreeNode * accordElementGetAppointNode(BinarySearchTree *pBSTree, ELEME
 /* 二叉搜索树删除元素 */
 int binarySearchTreeRemove(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
-    int ret = 0;
-    return binarySearchTreeRemoveAppointNode(pBSTree, accordElementGetAppointNode(pBSTree, val, NULL));
+    return binarySearchTreeRemoveAppointNode(pBSTree, accordElementGetAppointNode(pBSTree, val));
 }
 
 /* 二叉搜索树中是否包含指定元素 */
 int binarySearchTreeIsContainVal(BinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
-    int ret = 0;
-    
-    return ret;
+    #if 1
+    return accordElementGetAppointNode(pBSTree, val) != NULL ? true : false;
+    #else
+    return accordElementGetAppointNode(pBSTree, val) != NULL;
+    #endif
 }
 
 /* 二叉搜索树是否为空树 */
@@ -602,4 +626,12 @@ int binarySearchTreeIsComplete(BinarySearchTree *pBSTree)
     }
 
     return true;
+}
+
+/* 二叉树的保存 */
+int binarySearchTreeSave2File(BinarySearchTree *pBSTree, const char *pathname)
+{
+    int ret = 0;
+
+    return ret;
 }
