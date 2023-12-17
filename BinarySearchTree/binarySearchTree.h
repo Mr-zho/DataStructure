@@ -39,19 +39,19 @@ int binarySearchTreeIsContainVal(BinarySearchTree *pBSTree, ELEMENTTYPE val);
 int binarySearchTreeIsNull(BinarySearchTree *pBSTree);
 
 /* 二叉搜索树元素的个数 */
-int binarySearchTreeGetSize(BinarySearchTree *pBSTree);
+int binarySearchTreeGetSize(BinarySearchTree *pBSTree, int *pSize);
 
 /* 前序遍历 */
-int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree);
+int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 中序遍历 */
-int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree);
+int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 后序遍历 */
-int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree);
+int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 层序遍历 */
-int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree);
+int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 获取树的高度 */
 int binarySearchTreeGetHeight(BinarySearchTree *pBSTree, int *pHeight);

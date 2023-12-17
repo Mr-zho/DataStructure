@@ -16,13 +16,13 @@ int doubleLinkListInit(linkList **pList)
     /* 清空内存中的脏数据 */
     memset(plist, 0, sizeof(linkList) * 1);
     
-    plist->head = (Node *)malloc(sizeof(Node) * 1);
+    plist->head = (LinkNode *)malloc(sizeof(LinkNode) * 1);
     if (!(plist->head))
     {
         return -1;
     }
     /* 清空内存中的脏数据 */
-    memset(plist->head, 0, sizeof(Node) * 1);
+    memset(plist->head, 0, sizeof(LinkNode) * 1);
     /* 初始化链表 */
     plist->len = 0;
     /* 初始化虚拟结点*/

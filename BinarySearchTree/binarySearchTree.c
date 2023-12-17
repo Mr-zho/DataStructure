@@ -1,8 +1,8 @@
-#include "binarySearchTree.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <doublelinklistQueue.h>
+#include "doublelinklistQueue.h"
+#include "binarySearchTree.h"
 
 #define true    1
 #define false   0
@@ -344,16 +344,17 @@ int binarySearchTreeIsNull(BinarySearchTree *pBSTree)
 }
 
 /* 二叉搜索树元素的个数 */
-int binarySearchTreeGetSize(BinarySearchTree *pBSTree)
+int binarySearchTreeGetSize(BinarySearchTree *pBSTree, int *pSize)
 {
     if (!pBSTree)
     {
         return 0;
     }
+    *pSize = pBSTree->size;
     return pBSTree->size;
 }
 
-    static void binarySearchTreePreOrder(BSTreeNode *node)
+static void binarySearchTreePreOrder(BSTreeNode *node, int (*printFunc)(void *))
 {   
     /* 递归结束的条件 */
     if (node == NULL)
@@ -361,25 +362,29 @@ int binarySearchTreeGetSize(BinarySearchTree *pBSTree)
         return;
     }
     /* 根结点 左子树 右子树 */
+    #if 0
     printf("%d\n", node->val);
-    binarySearchTreePreOrder(node->left);
-    binarySearchTreePreOrder(node->right);
+    #else
+    printFunc(node->val);
+    #endif
+    binarySearchTreePreOrder(node->left, printFunc);
+    binarySearchTreePreOrder(node->right, printFunc);
 }
 
 /* 前序遍历 */
 /* 访问顺序: 根结点, 前序遍历左子树, 前序遍历右子树 */
-int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree)
+int binarySearchTreePreOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
     if (pBSTree == NULL)
     {
         return ret;
     }
-    binarySearchTreePreOrder(pBSTree->root);
+    binarySearchTreePreOrder(pBSTree->root, printFunc);
     return ret;
 }
 
-static void binarySearchTreeInOrder(BSTreeNode *node)
+static void binarySearchTreeInOrder(BSTreeNode *node, int (*printFunc)(void *))
 {
     /* 递归结束的条件 */
     if (node == NULL)
@@ -387,45 +392,53 @@ static void binarySearchTreeInOrder(BSTreeNode *node)
         return;
     }
     /* 左子树 根结点 右子树 */
-    binarySearchTreeInOrder(node->left);
+    binarySearchTreeInOrder(node->left, printFunc);
+    #if 0
     printf("%d\n", node->val);
-    binarySearchTreeInOrder(node->right);
+    #else
+    printFunc(node->val);
+    #endif
+    binarySearchTreeInOrder(node->right, printFunc);
     
     return;
 }
 
 /* 中序遍历 */
 /* 访问顺序: 遍历左子树, 根结点, 前序遍历右子树 */
-int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree)
+int binarySearchTreeInOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
-    binarySearchTreeInOrder(pBSTree->root);
+    binarySearchTreeInOrder(pBSTree->root, printFunc);
     return ret;
 }
 
 
-static void binarySearchTreePostOrder(BSTreeNode *node)
+static void binarySearchTreePostOrder(BSTreeNode *node, int (*printFunc)(void *))
 {
     if (node == NULL)
     {
         return;
     }
-    binarySearchTreePostOrder(node->left);
-    binarySearchTreePostOrder(node->right);
+    binarySearchTreePostOrder(node->left, printFunc);
+    binarySearchTreePostOrder(node->right, printFunc);
+    #if 0    
     printf("%d\n", node->val);
+    #else
+    printFunc(node->val);
+    #endif
 }
 
 /* 后序遍历 */
 /* 访问顺序: 遍历左子树, 右子树, 根结点*/
-int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree)
+int binarySearchTreePostOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
-    binarySearchTreePostOrder(pBSTree->root);
+    binarySearchTreePostOrder(pBSTree->root, printFunc);
     return ret;
 }
 
 /* 层序遍历 */
-int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree)
+int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
     /* 算法: 使用队列 
@@ -447,7 +460,11 @@ int binarySearchTreeLevelOrderTravel(BinarySearchTree *pBSTree)
     while (doublelinklistQueueSize(queue, &queueSize))
     {
         doublelinklistQueueTop(queue, (void *)&BstVal);
+        #if 0
         printf ("BstVal:%d\n", BstVal->val);
+        #else
+        printFunc(BstVal->val);
+        #endif
         doublelinklistQueuePop(queue);
 
         /* 当左子树存在的时候，将左子树添加到队列中 */

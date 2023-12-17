@@ -26,13 +26,35 @@ int compareSelfStruct(ELEMENTTYPE arg1, ELEMENTTYPE arg2)
     return strcmp(info1.name, info2.name);
     #endif 
 }   
+
+int compareBasicType(ELEMENTTYPE arg1, ELEMENTTYPE arg2)
+{
+    int va11 = *(int *)arg1;
+    int va12 = *(int *)arg2;
+
+    return va11 - va12;
+}
+
 int main()
 {
+
     BinarySearchTree *BST = NULL;
+#if 1
+    /* 初始化树 */
+    binarySearchTreeInit(&BST, compareBasicType);
+
+    int array1[] = {10, 3, 17};
+    for (int idx = 0; idx < DEFAULT_SIZE; idx++)
+    {
+        binarySearchTreeInsert(BST, (void *)&array1[idx]);
+    }
+    int size = 0;
+    binarySearchTreeGetSize(BST, &size);
+    printf("size:%d\n", size);
+#else
     /* 初始化树 */
     binarySearchTreeInit(&BST, compareSelfStruct);
-
-#if 1
+    
     StuInfo stu1;
     StuInfo stu2;
     StuInfo stu3;
@@ -60,7 +82,7 @@ int main()
         char *name = "mr_yu";
         strncpy(stu3.name, name, sizeof(stu3.name) - 1);
     }
-#endif
+
     /* 插入数据 */
     StuInfo buffer[DEFAULT_SIZE] = {stu1, stu2, stu3};
 
@@ -69,6 +91,6 @@ int main()
         binarySearchTreeInsert(BST, (void *)&buffer[idx]);
     }
     binarySearchTreePreOrderTravel(BST);
-
+#endif
     return 0;
 }
