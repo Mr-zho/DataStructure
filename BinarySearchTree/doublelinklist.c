@@ -56,12 +56,12 @@ int doubleLinkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val)
     {
         return NULL_PTR;
     }
-    Node *newnode = (Node *)malloc(sizeof(Node) * 1);
+    LinkNode *newnode = (LinkNode *)malloc(sizeof(LinkNode) * 1);
     if (!newnode)
     {
         return MALLOC_ERR;
     }
-    memset(newnode, 0, sizeof(Node));
+    memset(newnode, 0, sizeof(LinkNode));
     /* 维护新的节点 */
     newnode->val = val;
     newnode->next = NULL;
@@ -76,7 +76,7 @@ int doubleLinkListAppointPosInsert(linkList *pList, int pos, ELEMENTTYPE val)
 
     /* 备份一下pos的位置 */
     int tmpPos = pos;
-    Node * travel = pList->head;
+    LinkNode * travel = pList->head;
     while (pos)
     {
         pos--;
@@ -188,7 +188,7 @@ int doubleLinkListAppointPosDel(linkList *pList, int pos)
         return INVAILD_ACCESS;
     }
 
-    Node * travelNode = pList->head;
+    LinkNode * travelNode = pList->head;
     while(pos--)
     {
         travelNode = travelNode->next;
@@ -268,7 +268,7 @@ int doubleLinkListGetAppointPosVal(linkList *pList, int pos, ELEMENTTYPE *pVal)
         return INVAILD_ACCESS;
     }
 
-    Node * travel = pList->head;
+    LinkNode * travel = pList->head;
     while(pos)
     {
         pos--;

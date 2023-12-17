@@ -761,7 +761,6 @@ static int binarySearchTreeInOrderDestroy(BinarySearchTree *pBSTree)
 static int binarySearchTreeLevelOrderDestroy(BinarySearchTree *pBSTree)
 {
     int ret = 0;
-    int ret = 0;
     /* 算法: 使用队列 
         1. 将根结点入队
         2. 循环执行以下操作, 直到队列为空
