@@ -631,7 +631,7 @@ static BSTreeNode * precursorNode(BSTreeNode *node)
     {
         BSTreeNode * travelNode = node->left;
         /* 一直向右查找结点 知道找到左子树的“最右边”结点 */
-        while (node->right != NULL)
+        while (travelNode->right != NULL)
         {
             travelNode = travelNode->right;
         }
