@@ -4,6 +4,7 @@
 #include "doublelinklistQueue.h"
 #include "balanceBinarySearchTree.h"
 #include <math.h>
+#include <limits.h>
 
 #define true    1
 #define false   0
@@ -34,6 +35,10 @@ static AVLTreeNode * accordElementGetAppointNode(BalanceBinarySearchTree *pBSTre
 static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node);
 /* AVL树结点的平衡因子 */
 static int avlTreeNodeGetFactor(AVLTreeNode *node);
+/* 比较两个整数的最大值 */
+static int tmpMax(int val1, int val2);
+/* 更新结点的高度 */
+static int updateAvlTreeNodeHeight(AVLTreeNode *node);
 
 /* 二叉搜索树初始化 */
 int balanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
@@ -124,6 +129,19 @@ static AVLTreeNode * createAvlTreeNode(ELEMENTTYPE val)
     return newNode;
 }
 
+/* 临时写一个比较大小的函数, 后面知道后把这个删了 */
+static int tmpMax(int val1, int val2)
+{
+    return val1 > val2 ? val1 : val2;
+}
+
+/* 更新AVL结点的高度 */
+static int updateAvlTreeNodeHeight(AVLTreeNode *node)
+{
+    int leftHeight = (node->left == NULL) ? 0 : node->left->height;
+    int rightHeight = (node->right == NULL) ? 0 : node->right->height;
+    node->height = 1 + tmpMax(leftHeight, rightHeight);
+}
 /* 获取AVL树结点的平衡因子 */
 static int avlTreeNodeGetFactor(AVLTreeNode *node)
 {
@@ -147,12 +165,13 @@ static int currentAvlNodeIsBalance(AVLTreeNode *node)
  */
 static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node)
 {
+    /* 插入的结点一定是叶子结点 */
     /* 添加导致的失衡 */
     while ( (node = node->parent) != NULL)
     {
         if (currentNodeIsBalance(node))
         {
-
+            updateAvlTreeNodeHeight(node);
         }
         else
         {
