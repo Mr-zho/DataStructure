@@ -41,6 +41,9 @@ static int updateAvlTreeNodeHeight(AVLTreeNode *node);
 static int currentAvlNodeIsLeft(AVLTreeNode *node);
 /* 当前结点是父结点的右子树 */
 static int currentAvlNodeIsRight(AVLTreeNode *node);
+/* 判断AVL树结点是否平衡 */
+static int currentAvlNodeIsBalance(AVLTreeNode *node);
+
 
 
 /* 二叉搜索树初始化 */
@@ -73,6 +76,8 @@ int balanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compare
 
     /* 初始化树的根结点 */
     {
+        /* 根结点的高度为1. */
+        pBst->root->height = 1;
         pBst->root->left = NULL;
         pBst->root->right = NULL;
         pBst->root->parent = NULL;
@@ -243,7 +248,7 @@ static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node)
     /* 添加导致的失衡 */
     while ( (node = node->parent) != NULL)
     {
-        if (currentNodeIsBalance(node))
+        if (currentAvlNodeIsBalance(node))
         {
             /* 更新高度 */
             updateAvlTreeNodeHeight(node);
