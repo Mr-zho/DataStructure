@@ -141,9 +141,11 @@ static int tmpMax(int val1, int val2)
 /* 更新AVL结点的高度 */
 static int updateAvlTreeNodeHeight(AVLTreeNode *node)
 {
+    int ret = 0;
     int leftHeight = (node->left == NULL) ? 0 : node->left->height;
     int rightHeight = (node->right == NULL) ? 0 : node->right->height;
     node->height = 1 + tmpMax(leftHeight, rightHeight);
+    return ret;
 }
 /* 获取AVL树结点的平衡因子 */
 static int avlTreeNodeGetFactor(AVLTreeNode *node)
