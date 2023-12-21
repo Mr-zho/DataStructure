@@ -43,6 +43,11 @@ static int currentAvlNodeIsLeft(AVLTreeNode *node);
 static int currentAvlNodeIsRight(AVLTreeNode *node);
 /* 判断AVL树结点是否平衡 */
 static int currentAvlNodeIsBalance(AVLTreeNode *node);
+/* 对结点左旋 */
+static int avlTreeNoderotateLeft(AVLTreeNode *node);
+/* 对结点右旋 */
+static int avlTreeNoderotateRight(AVLTreeNode *node);
+
 
 
 
@@ -184,20 +189,74 @@ static AVLTreeNode * balanceNodeIsTaller(AVLTreeNode * node)
 {
     int leftHeight = (node->left == NULL) ? 0 : node->left->height;
     int rightHeight = (node->right == NULL) ? 0 : node->right->height;
-
+    /* 如果左子树的高度 > 右子树的高度 */
     if (leftHeight > rightHeight) 
     {
         return node->left;
     }
     else if (leftHeight < rightHeight)
     {
+        /* 如果左子树的高度 < 右子树的高度 */
         return node->right;
     } 
     else if (leftHeight == rightHeight)
     {
+        /* 如果左子树的高度 =  右子树的高度 */
         /* todo... */
         return currentAvlNodeIsLeft(node) ? node->left : node->right;
     }
+}
+
+/* AVL树结点左旋 */
+static int avlTreeNoderotateLeft(AVLTreeNode *grand)
+{
+    int ret = 0;
+    AVLTreeNode *parent = grand->right;
+    AVLTreeNode *child = parent->right;
+
+    /* 让parent成为子树的根结点 */
+    parent->parent = grand->parent;
+    if (currentAvlNodeIsLeft(grand))
+    {
+        /* 上面还有父结点 且当前结点是父结点的左子树 */
+        grand->parent->left = parent;
+    }
+    else if (currentAvlNodeIsRight(grand))
+    {
+        /* 上面还有父结点 且当前结点是父结点的右子树 */
+        grand->parent->right = parent;
+    }
+    else
+    {
+        /* 这种情况 : grand是根结点. */
+        /* todo... */
+
+    }
+
+    /* 更新child的parent. */
+    if (child != NULL)
+    {
+        child->parent = grand;
+    }
+
+    /* 更新grand的parent */
+    grand->parent = parent;
+
+    /* 更新结点的高度 */
+    /* 先更新低的结点的高度 */
+    updateAvlTreeNodeHeight(grand);
+    /* 后更新高的结点的高度*/
+    updateAvlTreeNodeHeight(parent);
+    return ret;
+}
+
+/* AVL树结点右旋 */
+static int avlTreeNoderotateRight(AVLTreeNode *grand)
+{
+    int ret = 0;
+
+
+    return ret;
 }
 
 /* 恢复平衡 */
@@ -210,29 +269,37 @@ static int balanceBinarySearchTreeNodeReBalance(AVLTreeNode *grand)
 
     if (currentAvlNodeIsLeft(parent))
     {
-        /* L?*/
+        /* L? */
         if (currentAvlNodeIsLeft(node))
         {
-            /* LL */    
+            /* LL */   
+            /* 右旋 => grandparent 右旋 */
+            avlTreeNoderotateLeft(grand);
         }
         else
         {
             /* LR */
+            /* 左旋 再右旋 */
+            avlTreeNoderotateLeft(parent);
+            avlTreeNoderotateRight(grand);
         }
-
     }
     else
     {
-        /* R?*/
+        /* R? */
         if (currentAvlNodeIsLeft(node))
         {
             /* RL */
+            /* 右旋 再左旋 */
+            avlTreeNoderotateRight(parent);
+            avlTreeNoderotateLeft(grand);
         }
         else
         {
             /* RR */
+            /* 左旋 => grandparent 左旋.*/
+            avlTreeNoderotateRight(node);
         }
-        
     }
 }
 
