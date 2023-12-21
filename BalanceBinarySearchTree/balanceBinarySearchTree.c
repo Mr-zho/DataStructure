@@ -21,7 +21,6 @@ static int balanceBinarySearchTreeNodeIsLeaf(AVLTreeNode *node);
 static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
 /* 创建AVL树的结点 */
 static AVLTreeNode *createAvlTreeNode(ELEMENTTYPE val);
-
 /* 结点比较函数, 配置不同的类型进行比较 后续函数指针替代 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 /* 获取当前结点的前驱结点 */
@@ -30,7 +29,6 @@ static AVLTreeNode * precursorNode(AVLTreeNode *node);
 static AVLTreeNode * successorNode(AVLTreeNode *node);
 /* 根据传递的元素获取到指定搜索树结点 */
 static AVLTreeNode * accordElementGetAppointNode(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
-
 /* 新增结点之后需要做的调整 */
 static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node);
 /* AVL树结点的平衡因子 */
@@ -39,6 +37,11 @@ static int avlTreeNodeGetFactor(AVLTreeNode *node);
 static int tmpMax(int val1, int val2);
 /* 更新结点的高度 */
 static int updateAvlTreeNodeHeight(AVLTreeNode *node);
+/* 当前结点是父结点的左子树 */
+static int currentAvlNodeIsLeft(AVLTreeNode *node);
+/* 当前结点是父结点的右子树 */
+static int currentAvlNodeIsRight(AVLTreeNode *node);
+
 
 /* 二叉搜索树初始化 */
 int balanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
@@ -156,6 +159,75 @@ static int currentAvlNodeIsBalance(AVLTreeNode *node)
     return abs(avlTreeNodeGetFactor(node)) <= 1;
 }
 
+/* 当前结点是父结点的左子树 */
+static int currentAvlNodeIsLeft(AVLTreeNode *node)
+{   
+    return (node->parent != NULL) && (node == node->parent->left);
+}
+
+/* 当前结点是父结点的右子树 */
+static int currentAvlNodeIsRight(AVLTreeNode *node)
+{
+    return (node->parent != NULL) && (node == node->parent->right);
+}
+
+
+/* 找到当前结点较高的子结点 */
+static AVLTreeNode * balanceNodeIsTaller(AVLTreeNode * node)
+{
+    int leftHeight = (node->left == NULL) ? 0 : node->left->height;
+    int rightHeight = (node->right == NULL) ? 0 : node->right->height;
+
+    if (leftHeight > rightHeight) 
+    {
+        return node->left;
+    }
+    else if (leftHeight < rightHeight)
+    {
+        return node->right;
+    } 
+    else if (leftHeight == rightHeight)
+    {
+        /* todo... */
+        return currentAvlNodeIsLeft(node) ? node->left : node->right;
+    }
+}
+
+/* 恢复平衡 */
+/* 参数最低的不平衡结点. 这边参数名直接改成grand. */
+static int balanceBinarySearchTreeNodeReBalance(AVLTreeNode *grand)
+{
+    /* 找到parent 和 node结点 */
+    AVLTreeNode * parent = balanceNodeIsTaller(grand);
+    AVLTreeNode * node = balanceNodeIsTaller(parent);
+
+    if (currentAvlNodeIsLeft(parent))
+    {
+        /* L?*/
+        if (currentAvlNodeIsLeft(node))
+        {
+            /* LL */    
+        }
+        else
+        {
+            /* LR */
+        }
+
+    }
+    else
+    {
+        /* R?*/
+        if (currentAvlNodeIsLeft(node))
+        {
+            /* RL */
+        }
+        else
+        {
+            /* RR */
+        }
+        
+    }
+}
 
 /* 
  *  添加结点导致的失衡 
@@ -171,11 +243,17 @@ static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node)
     {
         if (currentNodeIsBalance(node))
         {
+            /* 更新高度 */
             updateAvlTreeNodeHeight(node);
         }
         else
         {
+            /* 恢复平衡 */
+            /* 程序到这里就说明: node是最低的不平衡的结点. 就是grandparent */
+            balanceBinarySearchTreeNodeReBalance(node);
 
+            /* 调整完之后最低不平衡的祖父结点之后,整颗树就平衡了, 直接退出循环.*/
+            break;
         }
     } // 退出循环就是到了 树的根结点.parent. 也就是添加结点祖先结点都平衡了.
 }
