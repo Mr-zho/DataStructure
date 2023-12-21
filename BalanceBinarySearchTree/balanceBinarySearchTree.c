@@ -18,9 +18,9 @@ static int balanceBinarySearchTreeNodeHasOneChildren(AVLTreeNode *node);
 /* 判断结点是否是度为0的结点 (叶子结点) */
 static int balanceBinarySearchTreeNodeIsLeaf(AVLTreeNode *node);
 /* 创建新的树结点 */
-static BSTreeNode *createBstTreeNode(ELEMENTTYPE val);
+static BSTreeNode *createBstTreeNode(ELEMENTTYPE val, BSTreeNode *parent);
 /* 创建AVL树的结点 */
-static AVLTreeNode *createAvlTreeNode(ELEMENTTYPE val);
+static AVLTreeNode *createAvlTreeNode(ELEMENTTYPE val, AVLTreeNode *parent);
 /* 结点比较函数, 配置不同的类型进行比较 后续函数指针替代 */
 static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2);
 /* 获取当前结点的前驱结点 */
@@ -93,7 +93,7 @@ static int nodeCompare(ELEMENTTYPE val1, ELEMENTTYPE val2)
 #endif
 
 /* 创建新的结点(二叉搜索树) */
-static BSTreeNode *createBstTreeNode(ELEMENTTYPE val)
+static BSTreeNode *createBstTreeNode(ELEMENTTYPE val, BSTreeNode *parent)
 {
     BSTreeNode *newNode = (BSTreeNode*)malloc(sizeof(BSTreeNode) * 1);
     if (newNode == NULL)
@@ -106,13 +106,13 @@ static BSTreeNode *createBstTreeNode(ELEMENTTYPE val)
         newNode->val = val;
         newNode->left = NULL;
         newNode->right = NULL;
-        newNode->parent = NULL;
+        newNode->parent = parent;
     }
     return newNode;
 }
 
 /* 创建新的结点(平衡二叉搜索树) */
-static AVLTreeNode * createAvlTreeNode(ELEMENTTYPE val)
+static AVLTreeNode * createAvlTreeNode(ELEMENTTYPE val, AVLTreeNode * parent)
 {
     AVLTreeNode *newNode = (AVLTreeNode*)malloc(sizeof(AVLTreeNode) * 1);
     if (newNode == NULL)
@@ -127,7 +127,7 @@ static AVLTreeNode * createAvlTreeNode(ELEMENTTYPE val)
         newNode->height = 1;        
         newNode->left = NULL;
         newNode->right = NULL;
-        newNode->parent = NULL;
+        newNode->parent = parent;
     }
     return newNode;
 }
@@ -279,7 +279,7 @@ int balanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE 
     if (pBSTree->root == NULL)
     {
         /* 将新结点置为根结点 */
-        pBSTree->root = createBstTreeNode(val);
+        pBSTree->root = createBstTreeNode(val, NULL);
         (pBSTree->size)++; 
         return ret;
     }
@@ -290,7 +290,7 @@ int balanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE 
     {
         /* 空树 */
         /* 将新结点置为根结点 */
-        pBSTree->root = createAvlTreeNode(val);
+        pBSTree->root = createAvlTreeNode(val, NULL);
         if (pBSTree->root == NULL)
         {
             return NULL_PTR;
@@ -331,10 +331,10 @@ int balanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE 
     /* 新增树结点并赋值 */
     /* todo... 这边可以模仿出C++语法的构造函数 */
 #if 0
-    BSTreeNode * newNode = createBstTreeNode(val);
+    BSTreeNode * newNode = createBstTreeNode(val, parentNode);
 #else
     /* todo... 将当前结点的parent的结点可以放在创建结点的函数中完成. 模仿出构造函数. */
-    AVLTreeNode * newNode = createAvlTreeNode(val);
+    AVLTreeNode * newNode = createAvlTreeNode(val, parentNode);
 #endif
     if (newNode == NULL)
     {
@@ -351,7 +351,10 @@ int balanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE 
         /* 新结点插入到右子树 */
         parentNode->right = newNode;
     }
+#if 0
+    /* 这个地方不在需要, 已经在新建结点的时候传递好了。 */
     newNode->parent = parentNode;
+#endif
     pBSTree->size++;
     
     /* 新增结点之后的处理 */
