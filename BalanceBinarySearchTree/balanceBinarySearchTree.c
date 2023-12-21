@@ -3,6 +3,7 @@
 #include <string.h>
 #include "doublelinklistQueue.h"
 #include "balanceBinarySearchTree.h"
+#include <math.h>
 
 #define true    1
 #define false   0
@@ -31,6 +32,8 @@ static AVLTreeNode * accordElementGetAppointNode(BalanceBinarySearchTree *pBSTre
 
 /* 新增结点之后需要做的调整 */
 static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node);
+/* AVL树结点的平衡因子 */
+static int avlTreeNodeGetFactor(AVLTreeNode *node);
 
 /* 二叉搜索树初始化 */
 int balanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE))
@@ -121,13 +124,21 @@ static AVLTreeNode * createAvlTreeNode(ELEMENTTYPE val)
     return newNode;
 }
 
-
-static int currentNodeIsBalance(AVLTreeNode *node)
+/* 获取AVL树结点的平衡因子 */
+static int avlTreeNodeGetFactor(AVLTreeNode *node)
 {
-    int ret = 0;
-
-    return ret;
+    int leftHeight = (node->left == NULL) ? 0 : node->left->height;
+    int rightHeight = (node->right == NULL) ? 0 : node->right->height;
+    return leftHeight - rightHeight;
 }
+
+/* 判断AVL树结点是否平衡 */
+static int currentAvlNodeIsBalance(AVLTreeNode *node)
+{
+    return abs(avlTreeNodeGetFactor(node)) <= 1;
+}
+
+
 /* 
  *  添加结点导致的失衡 
  *  最好情况:所有结点都不失衡
@@ -145,7 +156,7 @@ static int balanceBinarySearchTreeAddNodeAfter(AVLTreeNode *node)
         }
         else
         {
-            
+
         }
     } // 退出循环就是到了 树的根结点.parent. 也就是添加结点祖先结点都平衡了.
 }
