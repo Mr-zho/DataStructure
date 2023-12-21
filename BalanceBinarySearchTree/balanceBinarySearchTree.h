@@ -3,7 +3,8 @@
 #include <stdio.h>
 
 #define ELEMENTTYPE void*
-/* 树的结点 */
+
+/* 树的结点 (保留之前二叉搜索树结点结构体) */
 typedef struct BSTreeNode
 {
     ELEMENTTYPE val;
@@ -12,12 +13,15 @@ typedef struct BSTreeNode
     struct BSTreeNode * parent;
 } BSTreeNode;
 
-/* AVL树结点 是基于二叉搜索树的结点 */
+/* 树的结点 */
 typedef struct AVLTreeNode
 {
-    struct BSTreeNode bstree;
-    /* 结点的高度 */
+    ELEMENTTYPE val;
+    /* AVL树维护了一个高度的属性, 用于计算当前结点的平衡因子 */
     int height;     
+    struct AVLTreeNode * left;
+    struct AVLTreeNode * right;
+    struct AVLTreeNode * parent;
 } AVLTreeNode;
 
 typedef struct BinarySearchTree
@@ -27,7 +31,7 @@ typedef struct BinarySearchTree
 
     /* 钩子🪝函数放在树内部 */
     int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE);
-    BSTreeNode * root;
+    AVLTreeNode * root;
 } BinarySearchTree;
 
 /* 将二叉搜索树的结点 重命名为平衡二叉搜索树的结点 */
