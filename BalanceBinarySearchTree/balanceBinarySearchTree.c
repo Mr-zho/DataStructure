@@ -207,15 +207,10 @@ static AVLTreeNode * balanceNodeIsTaller(AVLTreeNode * node)
     }
 }
 
-/* AVL树结点左旋 */
-static int avlTreeNoderotateLeft(BalanceBinarySearchTree *pBSTree, AVLTreeNode *grand)
+/* AVL旋转之后要做的事情. */
+static int avlTreeNodeAfterRotate(BalanceBinarySearchTree *pBSTree, AVLTreeNode *grand, AVLTreeNode *parent, AVLTreeNode *child)
 {
     int ret = 0;
-    AVLTreeNode *parent = grand->right;
-    AVLTreeNode *child = parent->left;
-    /* 修改指针 指向. */
-    grand->right = child;
-    parent->left = grand;
 
     /* 让parent成为子树的根结点 */
     parent->parent = grand->parent;
@@ -250,7 +245,23 @@ static int avlTreeNoderotateLeft(BalanceBinarySearchTree *pBSTree, AVLTreeNode *
     updateAvlTreeNodeHeight(grand);
     /* 后更新高的结点的高度*/
     updateAvlTreeNodeHeight(parent);
+
     return ret;
+}
+
+
+
+/* AVL树结点左旋 */
+static int avlTreeNoderotateLeft(BalanceBinarySearchTree *pBSTree, AVLTreeNode *grand)
+{
+    int ret = 0;
+    AVLTreeNode *parent = grand->right;
+    AVLTreeNode *child = parent->left;
+    /* 修改指针 指向. */
+    grand->right = child;
+    parent->left = grand;
+
+    return avlTreeNodeAfterRotate(pBSTree, grand, parent, child);
 }
 
 /* AVL树结点右旋 */
@@ -264,40 +275,7 @@ static int avlTreeNoderotateRight(BalanceBinarySearchTree *pBSTree, AVLTreeNode 
     grand->left = child;
     parent->right = grand;
 
-    /* 让parent成为子树的根结点 */
-    parent->parent = grand->parent;
-    if (currentAvlNodeIsLeft(grand))
-    {
-        /* 上面还有父结点 且当前结点是父结点的左子树 */
-        grand->parent->left = parent;
-    }
-    else if (currentAvlNodeIsLeft(grand))
-    {
-        /* 上面还有父结点 且当前结点是父结点的右子树 */
-        grand->parent->right = parent;
-    }
-    else
-    {
-        /* grand是根结点 */
-        /* 更新树的根结点 */
-        pBSTree->root = parent;
-    }
-
-    /* 更新child的parent. */
-    if (child != NULL)
-    {
-        child->parent = grand;
-    }
-
-    /* 更新grand的parent. */
-    grand->parent = parent;
-
-    /* 更新结点的高度 */
-    /* 先更新较低结点的高度. */
-    updateAvlTreeNodeHeight(grand);
-    /* 后更新较低结点的高度. */
-    updateAvlTreeNodeHeight(parent);
-    return ret;
+    return avlTreeNodeAfterRotate(pBSTree, grand, parent, child);
 }
 
 /* 恢复平衡 */
