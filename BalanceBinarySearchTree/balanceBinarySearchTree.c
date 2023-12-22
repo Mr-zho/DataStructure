@@ -254,8 +254,43 @@ static int avlTreeNoderotateLeft(AVLTreeNode *grand)
 static int avlTreeNoderotateRight(AVLTreeNode *grand)
 {
     int ret = 0;
+    AVLTreeNode *parent = grand->left;
+    AVLTreeNode *child = parent->left;
 
 
+    /* 让parent成为子树的根结点 */
+    parent->parent = grand->parent;
+    if (currentAvlNodeIsLeft(grand))
+    {
+        /* 上面还有父结点 且当前结点是父结点的左子树 */
+        grand->parent->left = parent;
+    }
+    else if (currentAvlNodeIsLeft(grand))
+    {
+        /* 上面还有父结点 且当前结点是父结点的右子树 */
+        grand->parent->right = parent;
+    }
+    else
+    {
+        /* grand是根结点 */
+        /* 更新树的根结点 */
+
+    }
+
+    /* 更新child的parent. */
+    if (child != NULL)
+    {
+        child->parent = grand;
+    }
+
+    /* 更新grand的parent. */
+    grand->parent = parent;
+
+    /* 更新结点的高度 */
+    /* 先更新较低结点的高度. */
+    updateAvlTreeNodeHeight(grand);
+    /* 后更新较低结点的高度. */
+    updateAvlTreeNodeHeight(parent);
     return ret;
 }
 
