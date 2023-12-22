@@ -213,6 +213,9 @@ static int avlTreeNoderotateLeft(BalanceBinarySearchTree *pBSTree, AVLTreeNode *
     int ret = 0;
     AVLTreeNode *parent = grand->right;
     AVLTreeNode *child = parent->left;
+    /* 修改指针 指向. */
+    grand->right = child;
+    parent->left = grand;
 
     /* 让parent成为子树的根结点 */
     parent->parent = grand->parent;
@@ -257,6 +260,9 @@ static int avlTreeNoderotateRight(BalanceBinarySearchTree *pBSTree, AVLTreeNode 
     AVLTreeNode *parent = grand->left;
     AVLTreeNode *child = parent->right;
 
+    /* 修改指针指向 */
+    grand->left = child;
+    parent->right = grand;
 
     /* 让parent成为子树的根结点 */
     parent->parent = grand->parent;
