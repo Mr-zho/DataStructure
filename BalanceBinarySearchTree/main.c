@@ -1,4 +1,4 @@
-#include "binarySearchTree.h"
+#include "balanceBinarySearchTree.h"
 #include <stdio.h>
 #include <string.h>
 

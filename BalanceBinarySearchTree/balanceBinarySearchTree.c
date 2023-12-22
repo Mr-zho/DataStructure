@@ -31,6 +31,8 @@ static AVLTreeNode * successorNode(AVLTreeNode *node);
 static AVLTreeNode * accordElementGetAppointNode(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
 /* 新增结点之后需要做的调整 */
 static int balanceBinarySearchTreeAddNodeAfter(BalanceBinarySearchTree *pBSTree, AVLTreeNode *node);
+/* 删除结点之后需要做的调整 */
+static int balanceBinarySearchTreeRemoveNodeAfter(BalanceBinarySearchTree *pBSTree, AVLTreeNode *node);
 /* AVL树结点的平衡因子 */
 static int avlTreeNodeGetFactor(AVLTreeNode *node);
 /* 比较两个整数的最大值 */
@@ -469,6 +471,26 @@ static int balanceBinarySearchTreeRemoveSuccessorNode(BalanceBinarySearchTree *p
     return ret;
 }
 
+
+static int balanceBinarySearchTreeRemoveNodeAfter(BalanceBinarySearchTree *pBSTree, AVLTreeNode *node)
+{
+    int ret = 0;
+    while ((node = node->parent) != NULL)
+    {
+        /* 判断结点是否平衡 */
+        if (currentAvlNodeIsBalance(node))
+        {
+            /* 更新高度 */
+            updateAvlTreeNodeHeight(node);
+        }
+        else
+        {
+            /* 恢复平衡 */
+            balanceBinarySearchTreeNodeReBalance(pBSTree, node);
+        }
+    }
+    return ret;
+}
 /* 删除指定结点 */
 /* 
  * 删除度为0的结点: 要么是叶子结点,要么是只有唯一一个结点的树。这种情况下直接释放free结点即可
@@ -544,6 +566,8 @@ static int balanceBinarySearchTreeRemoveAppointNode(BalanceBinarySearchTree *pBS
         /* 更改parent结点 */
         replaceNode->parent = node->parent;
         
+        /* 删除结点之后的处理. */
+        balanceBinarySearchTreeRemoveNodeAfter(pBSTree, node);
     }
     else
     {
@@ -553,6 +577,9 @@ static int balanceBinarySearchTreeRemoveAppointNode(BalanceBinarySearchTree *pBS
             /* node是根结点 */
             /* 直接释放结点 */
             tmpNode = node;
+
+            /* 删除结点之后的处理. */
+            balanceBinarySearchTreeRemoveNodeAfter(pBSTree, node);
         }
         else
         {
@@ -569,7 +596,11 @@ static int balanceBinarySearchTreeRemoveAppointNode(BalanceBinarySearchTree *pBS
             }
             /* 数据备份 */
             tmpNode = node;
+
+            /* 删除结点之后的处理. */
+            balanceBinarySearchTreeRemoveNodeAfter(pBSTree, node);
         }
+
     }
     /* 释放结点 : 指针全部变动完之后再操作. */
     if (tmpNode != NULL)
