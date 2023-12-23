@@ -295,7 +295,7 @@ static int balanceBinarySearchTreeNodeReBalance(BalanceBinarySearchTree *pBSTree
         {
             /* LL */   
             /* 右旋 => grandparent 右旋 */
-            avlTreeNoderotateLeft(pBSTree, grand);
+            avlTreeNoderotateRight(pBSTree, grand);
         }
         else
         {
@@ -319,7 +319,7 @@ static int balanceBinarySearchTreeNodeReBalance(BalanceBinarySearchTree *pBSTree
         {
             /* RR */
             /* 左旋 => grandparent 左旋.*/
-            avlTreeNoderotateRight(pBSTree, node);
+            avlTreeNoderotateLeft(pBSTree, grand);
         }
     }
 }
@@ -329,6 +329,7 @@ static int balanceBinarySearchTreeNodeReBalance(BalanceBinarySearchTree *pBSTree
  *  最好情况:所有结点都不失衡
  *  最坏情况:可能会导致所有的祖先结点都失衡
  *  父结点、非祖父结点，都不可能失衡
+ *  注意:只要让高度最低的失衡结点恢复平衡,整颗树就恢复平衡了【仅需O(1)次调整】
  */
 static int balanceBinarySearchTreeAddNodeAfter(BalanceBinarySearchTree *pBSTree, AVLTreeNode *node)
 {
@@ -472,6 +473,8 @@ static int balanceBinarySearchTreeRemoveSuccessorNode(BalanceBinarySearchTree *p
 }
 
 
+/* 删除结点也可能会导致失衡. */
+/* 可能会导致父结点或者祖父结点失去平衡(只有一个结点会失衡), 其他结点不可能失衡 */
 static int balanceBinarySearchTreeRemoveNodeAfter(BalanceBinarySearchTree *pBSTree, AVLTreeNode *node)
 {
     int ret = 0;
@@ -993,7 +996,7 @@ static AVLTreeNode * successorNode(AVLTreeNode *node)
     return node->parent;
 }
 
-
+    
 
 /* 判断树是否是完全二叉树 */
 /* 算法: 

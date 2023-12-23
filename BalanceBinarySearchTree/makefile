@@ -1,17 +1,17 @@
-BST:doublelinklist.o doublelinklistQueue.o balanceBinarySearchTree.o main.o
-	gcc doublelinklist.o doublelinklistQueue.o balanceBinarySearchTree.o main.o -o BST
+AVL:doublelinklist.o doublelinklistQueue.o balanceBinarySearchTree.o main.o
+	gcc -g doublelinklist.o doublelinklistQueue.o balanceBinarySearchTree.o main.o -o AVL
 
 doublelinklist.o:doublelinklist.c
-	gcc -c doublelinklist.c -o doublelinklist.o
+	gcc -g -c doublelinklist.c -o doublelinklist.o
 
 doublelinklistQueue.o:doublelinklistQueue.c
-	gcc -c doublelinklistQueue.c -o doublelinklistQueue.o
+	gcc -g -c doublelinklistQueue.c -o doublelinklistQueue.o
 
 balanceBinarySearchTree.o:balanceBinarySearchTree.c
-	gcc -c balanceBinarySearchTree.c -o balanceBinarySearchTree.o
+	gcc -g -c balanceBinarySearchTree.c -o balanceBinarySearchTree.o
 
 main.o:main.c
-	gcc -c main.c -o main.o
+	gcc -g -c main.c -o main.o
 
 clean:
-	@rm -rf *.o BST
+	@rm -rf *.o AVL

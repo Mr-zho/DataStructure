@@ -45,72 +45,93 @@ int compareBasicType(ELEMENTTYPE arg1, ELEMENTTYPE arg2)
 int main()
 {
 
-    BinarySearchTree *BST = NULL;
+    BinarySearchTree *AVL = NULL;
 #if 1
     /* 初始化树 */
-    balanceBinarySearchTreeInit(&BST, compareBasicType);
+    balanceBinarySearchTreeInit(&AVL, compareBasicType);
 
-    int array1[] = {666, 555, 888, 444, 600, 777, 999, 333, 1111};
+    /* LL情况 - 右旋 */
+    // int array1[] = {555, 444, 333};
+    /* RR情况 - 左旋 */
+    // int array1[] = {555, 666, 777};
+
+    /* LR情况 - */
+    int array1[] = {555, 333, 444};
+
+    /* RL情况 - */
+    // int array1[] = {333, 555, 444};
+
     for (int idx = 0; idx < sizeof(array1) / sizeof(array1[0]); idx++)
     {
-        balanceBinarySearchTreeInsert(BST, (void *)&array1[idx]);
+        balanceBinarySearchTreeInsert(AVL, (void *)&array1[idx]);
     }
-#if 0
+#if 1
     int size = 0;
-    BalanceBinarySearchTreeGetSize(BST, &size);
+    balanceBinarySearchTreeGetSize(AVL, &size);
     printf("size:%d\n", size);
 
+/* 获取树的高度 */
+    int height = 0;
+    balanceBinarySearchTreeGetHeight(AVL, &height);
+    printf("height:%d\n", height);
+#endif
+
+#if 1
+    /* 层序遍历 */
+    printf("Level order:\n");
+    balanceBinarySearchTreeLevelOrderTravel(AVL, printBasicData);
+    printf("\n");
+#endif
+
+#if 0
     /* 中序遍历 */
     printf("In order:\n");
-    BalanceBinarySearchTreeInOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeInOrderTravel(AVL, printBasicData);
     printf("\n");
-    /* 获取树的高度 */
-    int height = 0;
-    BalanceBinarySearchTreeGetHeight(BST, &height);
-    printf("height:%d\n", height);
+    
 
     /* 层序遍历 */
     printf("Level order:\n");
-    BalanceBinarySearchTreeLevelOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeLevelOrderTravel(AVL, printBasicData);
     printf("\n");
 
     int goodElement = 789;
-    BalanceBinarySearchTreeRemove(BST, &goodElement);
+    BalanceBinarySearchTreeRemove(AVL, &goodElement);
 
-    int ret = BalanceBinarySearchTreeIsContainVal(BST, &goodElement);
+    int ret = BalanceBinarySearchTreeIsContainVal(AVL, &goodElement);
     printf("ret:%d\n", ret);
 
 
     size = 0;
-    BalanceBinarySearchTreeGetSize(BST, &size);
+    BalanceBinarySearchTreeGetSize(AVL, &size);
     printf("size:%d\n", size);
 #endif
 
 #if 0
     /* 中序遍历 */
     printf("In order:\n");
-    binarySearchTreeInOrderTravel(BST, printBasicData);
+    binarySearchTreeInOrderTravel(AVL, printBasicData);
     printf("\n");
 #endif
 
 #if 0
     /* 层序遍历 */
     printf("Level order:\n");
-    BalanceBinarySearchTreeLevelOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeLevelOrderTravel(AVL, printBasicData);
     printf("\n");
 #endif
 
 #if 0
     int badElement = 56;
-    ret = binarySearchTreeIsContainVal(BST, &badElement);
+    ret = binarySearchTreeIsContainVal(AVL, &badElement);
     printf("ret:%d\n", ret);
 #endif
 
     /* 销毁二叉搜索树 -> 检测内存泄漏 */
-    balanceBinarySearchTreeDestroy(BST);
+    balanceBinarySearchTreeDestroy(AVL);
 #else
     /* 初始化树 */
-    binarySearchTreeInit(&BST, compareSelfStruct);
+    binarySearchTreeInit(&AVL, compareSelfStruct);
     
     StuInfo stu1;
     StuInfo stu2;
@@ -145,9 +166,9 @@ int main()
 
     for (int idx = 0; idx < DEFAULT_SIZE; idx++)
     {   
-        binarySearchTreeInsert(BST, (void *)&buffer[idx]);
+        binarySearchTreeInsert(AVL, (void *)&buffer[idx]);
     }
-    binarySearchTreePreOrderTravel(BST);
+    binarySearchTreePreOrderTravel(AVL);
 #endif
     return 0;
 }
