@@ -48,41 +48,43 @@ int main()
     BinarySearchTree *BST = NULL;
 #if 1
     /* 初始化树 */
-    binarySearchTreeInit(&BST, compareBasicType);
+    balanceBinarySearchTreeInit(&BST, compareBasicType);
 
     int array1[] = {666, 555, 888, 444, 600, 777, 999, 333, 1111};
     for (int idx = 0; idx < sizeof(array1) / sizeof(array1[0]); idx++)
     {
-        binarySearchTreeInsert(BST, (void *)&array1[idx]);
+        balanceBinarySearchTreeInsert(BST, (void *)&array1[idx]);
     }
+#if 0
     int size = 0;
-    binarySearchTreeGetSize(BST, &size);
+    BalanceBinarySearchTreeGetSize(BST, &size);
     printf("size:%d\n", size);
 
     /* 中序遍历 */
     printf("In order:\n");
-    binarySearchTreeInOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeInOrderTravel(BST, printBasicData);
     printf("\n");
     /* 获取树的高度 */
     int height = 0;
-    binarySearchTreeGetHeight(BST, &height);
+    BalanceBinarySearchTreeGetHeight(BST, &height);
     printf("height:%d\n", height);
 
     /* 层序遍历 */
     printf("Level order:\n");
-    binarySearchTreeLevelOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeLevelOrderTravel(BST, printBasicData);
     printf("\n");
 
     int goodElement = 789;
-    binarySearchTreeRemove(BST, &goodElement);
+    BalanceBinarySearchTreeRemove(BST, &goodElement);
 
-    int ret = binarySearchTreeIsContainVal(BST, &goodElement);
+    int ret = BalanceBinarySearchTreeIsContainVal(BST, &goodElement);
     printf("ret:%d\n", ret);
 
 
     size = 0;
-    binarySearchTreeGetSize(BST, &size);
+    BalanceBinarySearchTreeGetSize(BST, &size);
     printf("size:%d\n", size);
+#endif
 
 #if 0
     /* 中序遍历 */
@@ -91,11 +93,12 @@ int main()
     printf("\n");
 #endif
 
+#if 0
     /* 层序遍历 */
     printf("Level order:\n");
-    binarySearchTreeLevelOrderTravel(BST, printBasicData);
+    BalanceBinarySearchTreeLevelOrderTravel(BST, printBasicData);
     printf("\n");
-
+#endif
 
 #if 0
     int badElement = 56;
@@ -104,7 +107,7 @@ int main()
 #endif
 
     /* 销毁二叉搜索树 -> 检测内存泄漏 */
-    binarySearchTreeDestroy(BST);
+    balanceBinarySearchTreeDestroy(BST);
 #else
     /* 初始化树 */
     binarySearchTreeInit(&BST, compareSelfStruct);

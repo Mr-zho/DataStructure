@@ -38,47 +38,47 @@ typedef struct BinarySearchTree
 typedef BinarySearchTree BalanceBinarySearchTree;
 
 /* 二叉搜索树初始化 */
-int BalanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE));
+int balanceBinarySearchTreeInit(BalanceBinarySearchTree **pBSTree, int (*compareFunc)(ELEMENTTYPE, ELEMENTTYPE));
 
 /* 二叉搜索树新增元素 */
-int BalanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
+int balanceBinarySearchTreeInsert(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树删除元素 */
-int BalanceBinarySearchTreeRemove(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
+int balanceBinarySearchTreeRemove(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树中是否包含指定元素 */
-int BalanceBinarySearchTreeIsContainVal(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
+int balanceBinarySearchTreeIsContainVal(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val);
 
 /* 二叉搜索树是否为空树 */
-int BalanceBinarySearchTreeIsNull(BalanceBinarySearchTree *pBSTree);
+int balanceBinarySearchTreeIsNull(BalanceBinarySearchTree *pBSTree);
 
 /* 二叉搜索树元素的个数 */
-int BalanceBinarySearchTreeGetSize(BalanceBinarySearchTree *pBSTree, int *pSize);
+int balanceBinarySearchTreeGetSize(BalanceBinarySearchTree *pBSTree, int *pSize);
 
 /* 前序遍历 */
-int BalanceBinarySearchTreePreOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
+int balanceBinarySearchTreePreOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 中序遍历 */
-int BalanceBinarySearchTreeInOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
+int balanceBinarySearchTreeInOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 后序遍历 */
-int BalanceBinarySearchTreePostOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
+int balanceBinarySearchTreePostOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 层序遍历 */
-int BalanceBinarySearchTreeLevelOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
+int balanceBinarySearchTreeLevelOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *));
 
 /* 获取树的高度 */
-int BalanceBinarySearchTreeGetHeight(BalanceBinarySearchTree *pBSTree, int *pHeight);
+int balanceBinarySearchTreeGetHeight(BalanceBinarySearchTree *pBSTree, int *pHeight);
 
 /* 二叉树的打印器 */
-int BalanceBinarySearchTreeFormatPrintOut(BalanceBinarySearchTree *pBSTree);
+int balanceBinarySearchTreeFormatPrintOut(BalanceBinarySearchTree *pBSTree);
 
 /* 判断树是否是完全二叉树 */
-int BalanceBinarySearchTreeIsComplete(BalanceBinarySearchTree *pBSTree);
+int balanceBinarySearchTreeIsComplete(BalanceBinarySearchTree *pBSTree);
 
 /* 二叉搜索树的销毁 */
-int BalanceBinarySearchTreeDestroy(BalanceBinarySearchTree *pBSTree);
+int balanceBinarySearchTreeDestroy(BalanceBinarySearchTree *pBSTree);
 
 /* 二叉树的保存 */
-int BalanceBinarySearchTreeSave2File(BalanceBinarySearchTree *pBSTree, const char *pathname);
+int balanceBinarySearchTreeSave2File(BalanceBinarySearchTree *pBSTree, const char *pathname);
 #endif  // __BINARY_SEARCH_TREE_H_

@@ -515,7 +515,7 @@ static int balanceBinarySearchTreeRemoveAppointNode(BalanceBinarySearchTree *pBS
 
     #if 0
     /* 度为2 */
-    if (BalanceBinarySearchTreeNodeHasTwoChildrens(node))
+    if (balanceBinarySearchTreeNodeHasTwoChildrens(node))
     {
         /* 前驱结点替换当前结点 */
         AVLTreeNode * preNode  = precursorNode(node);
@@ -525,7 +525,7 @@ static int balanceBinarySearchTreeRemoveAppointNode(BalanceBinarySearchTree *pBS
     #else
     /* 度为2 */
     /* 后继结点替换当前结点 */
-    if (BalanceBinarySearchTreeNodeHasTwoChildrens(node))
+    if (balanceBinarySearchTreeNodeHasTwoChildrens(node))
     {
         /* 后继结点替换当前结点 */
         AVLTreeNode * nextNode = successorNode(node);
@@ -640,7 +640,7 @@ static AVLTreeNode * accordElementGetAppointNode(BalanceBinarySearchTree *pBSTre
 /* 二叉搜索树删除元素 */
 int balanceBinarySearchTreeRemove(BalanceBinarySearchTree *pBSTree, ELEMENTTYPE val)
 {
-    return BalanceBinarySearchTreeRemoveAppointNode(pBSTree, accordElementGetAppointNode(pBSTree, val));
+    return balanceBinarySearchTreeRemoveAppointNode(pBSTree, accordElementGetAppointNode(pBSTree, val));
 }
 
 /* 二叉搜索树中是否包含指定元素 */
@@ -687,8 +687,8 @@ static void balanceBinarySearchTreePreOrder(AVLTreeNode *node, int (*printFunc)(
     #else
     printFunc(node->val);
     #endif
-    BalanceBinarySearchTreePreOrder(node->left, printFunc);
-    BalanceBinarySearchTreePreOrder(node->right, printFunc);
+    balanceBinarySearchTreePreOrder(node->left, printFunc);
+    balanceBinarySearchTreePreOrder(node->right, printFunc);
 }
 
 /* 前序遍历 */
@@ -700,7 +700,7 @@ int balanceBinarySearchTreePreOrderTravel(BalanceBinarySearchTree *pBSTree, int 
     {
         return ret;
     }
-    BalanceBinarySearchTreePreOrder(pBSTree->root, printFunc);
+    balanceBinarySearchTreePreOrder(pBSTree->root, printFunc);
     return ret;
 }
 
@@ -712,13 +712,13 @@ static void balanceBinarySearchTreeInOrder(AVLTreeNode *node, int (*printFunc)(v
         return;
     }
     /* 左子树 根结点 右子树 */
-    BalanceBinarySearchTreeInOrder(node->left, printFunc);
+    balanceBinarySearchTreeInOrder(node->left, printFunc);
     #if 0
     printf("%d\n", node->val);
     #else
     printFunc(node->val);
     #endif
-    BalanceBinarySearchTreeInOrder(node->right, printFunc);
+    balanceBinarySearchTreeInOrder(node->right, printFunc);
     
     return;
 }
@@ -728,7 +728,7 @@ static void balanceBinarySearchTreeInOrder(AVLTreeNode *node, int (*printFunc)(v
 int balanceBinarySearchTreeInOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
-    BalanceBinarySearchTreeInOrder(pBSTree->root, printFunc);
+    balanceBinarySearchTreeInOrder(pBSTree->root, printFunc);
     return ret;
 }
 
@@ -739,8 +739,8 @@ static void balanceBinarySearchTreePostOrder(AVLTreeNode *node, int (*printFunc)
     {
         return;
     }
-    BalanceBinarySearchTreePostOrder(node->left, printFunc);
-    BalanceBinarySearchTreePostOrder(node->right, printFunc);
+    balanceBinarySearchTreePostOrder(node->left, printFunc);
+    balanceBinarySearchTreePostOrder(node->right, printFunc);
     #if 0    
     printf("%d\n", node->val);
     #else
@@ -753,7 +753,7 @@ static void balanceBinarySearchTreePostOrder(AVLTreeNode *node, int (*printFunc)
 int balanceBinarySearchTreePostOrderTravel(BalanceBinarySearchTree *pBSTree, int (*printFunc)(void *))
 {
     int ret = 0;
-    BalanceBinarySearchTreePostOrder(pBSTree->root, printFunc);
+    balanceBinarySearchTreePostOrder(pBSTree->root, printFunc);
     return ret;
 }
 
@@ -1031,7 +1031,7 @@ int balanceBinarySearchTreeIsComplete(BalanceBinarySearchTree *pBSTree)
     {
         doublelinklistQueueTop(queue, (void *)&node);
         doublelinklistQueuePop(queue);
-        if (leaf && !BalanceBinarySearchTreeNodeIsLeaf(node))
+        if (leaf && !balanceBinarySearchTreeNodeIsLeaf(node))
         {
             return false;
         }
@@ -1146,7 +1146,7 @@ int balanceBinarySearchTreeDestroy(BalanceBinarySearchTree *pBSTree)
     BalanceBinarySearchTreeInOrderDestroy(pBSTree);
     #else
     /* 使用层序遍历的方式销毁 */
-    BalanceBinarySearchTreeLevelOrderDestroy(pBSTree);
+    balanceBinarySearchTreeLevelOrderDestroy(pBSTree);
     #endif
     return ret;
 }
